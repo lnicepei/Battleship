@@ -1,10 +1,11 @@
 type Ship = {
   length: number;
-  coordinateX: number;
-  coordinateY: number;
   whereHit: string[];
   sunk: boolean;
-  hit(parameter: number): void;
+  coordinateX: number;
+  coordinateY: number;
+  area: number[];
+  hit(hitX: number, hitY: number): void;
   isSunk(): void;
 };
 
