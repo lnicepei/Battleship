@@ -8,7 +8,7 @@ function Gameboard(): {
 } {
   let arrayOfShips: Ship[] = [];
   let gameboardArray: number[][] = [];
-  [arrayOfShips, gameboardArray] = placeShips(arrayOfShips);
+  [arrayOfShips, gameboardArray] = createShips(arrayOfShips);
   return {
     arrayOfShips,
     receiveAttack(coordinateX: number, coordinateY: number) {
@@ -27,8 +27,8 @@ function Gameboard(): {
   };
 }
 
-function placeShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
-  const shipsBoard: number[][] = [[], [], [], [], [], [], [], [], [], []];
+function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
+  let shipsBoard: number[][] = [[], [], [], [], [], [], [], [], [], []];
   const cols = 10,
     rows = 10;
 
@@ -41,23 +41,87 @@ function placeShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
 
   for (let k = 1; k <= 4; k++) {
     for (let i = 1; i <= k; i++) {
-      // arrayOfShips.push(Ships(i, randomCoord inates(), randomCoordinates()));
-      // arrayOfShips.push(Ships(4, randomCoordinates(), randomCoordinates()));
-      const randomX: number = randomCoordinates();
-      const randomY: number = randomCoordinates();
-      const ship = Ships(i, randomX, randomY);
+      const ship = Ships(i, 1, 1);
+
+      shipsBoard = checkConsequtivePlace(shipsBoard, ship);
 
       arrayOfShips.push(ship);
-
-      for (let y = 0; y < 10; y++)
-        for (let x = 0; x < 10; x++) {
-          if (ship.length + x <= 10) shipsBoard[x][y] = 1;
-          // shipsBoard[j][randomY + 1] = 1;
-        }
     }
   }
 
   return [arrayOfShips, shipsBoard];
+}
+
+function checkConsequtivePlace(shipsBoard: number[][], ship: Ship): number[][] {
+  // let counter = 0;
+  // for (let k = x; k <= 10 - (ship.coordinateX + ship.length + x); k++) {
+  //   if (shipsBoard[k][y] !== 1) counter++;
+  //   if (counter == ship.length) return true;
+  // }
+  for (let x = 0; x < 10; x++) {
+    for (let y = 0; y < 10; y++) {
+      switch (ship.length) {
+        case 1:
+          if (shipsBoard[x][y] !== 1) {
+            shipsBoard[x][y] = 1;
+            shipsBoard[x + 1][y] = 0;
+            ship.coordinateX = x;
+            ship.coordinateY = y;
+            return shipsBoard;
+          }
+          break;
+        case 2:
+          if (shipsBoard[x][y] !== 1 && shipsBoard[x + 1][y] !== 1) {
+            shipsBoard[x][y] = 1;
+            shipsBoard[x + 1][y] = 1;
+            shipsBoard[x + 2][y] = 0;
+            ship.coordinateX = x;
+            ship.coordinateY = y;
+            return shipsBoard;
+          }
+          break;
+        case 3:
+          if (x + 2 < 10) {
+            if (
+              shipsBoard[x][y] !== 1 &&
+              shipsBoard[x + 1][y] !== 1 &&
+              shipsBoard[x + 2][y] !== 1
+            ) {
+              shipsBoard[x][y] = 1;
+              shipsBoard[x + 1][y] = 1;
+              shipsBoard[x + 2][y] = 1;
+              shipsBoard[x + 3][y] = 0;
+              ship.coordinateX = x;
+              ship.coordinateY = y;
+              return shipsBoard;
+            }
+          }
+          break;
+        case 4:
+          if (x + 3 < 10) {
+            if (
+              shipsBoard[x][y] !== 1 &&
+              shipsBoard[x + 1][y] !== 1 &&
+              shipsBoard[x + 2][y] !== 1 &&
+              shipsBoard[x + 3][y] !== 1
+            ) {
+              shipsBoard[x][y] = 1;
+              shipsBoard[x + 1][y] = 1;
+              shipsBoard[x + 2][y] = 1;
+              shipsBoard[x + 3][y] = 1;
+              shipsBoard[x + 4][y] = 0;
+              ship.coordinateX = x;
+              ship.coordinateY = y;
+              return shipsBoard;
+            }
+          }
+          break;
+        default:
+          return shipsBoard;
+      }
+    }
+  }
+  return shipsBoard;
 }
 
 function randomCoordinates(): number {
