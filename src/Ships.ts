@@ -18,7 +18,7 @@ function Ships(
     sunk: false,
     coordinateX: coordinateX,
     coordinateY: coordinateY,
-    area: [coordinateX - 1, coordinateY - 1, coordinateX - 1 + length, coordinateY - 1 + length],
+    area: [coordinateX, coordinateY, coordinateX + length, coordinateY + 1],
     hit(hitX: number, hitY: number): void {
       if (hitY == coordinateY && coordinateX <= hitX && hitX < coordinateX + this.length)
         this.whereHit[hitX - coordinateX] = 'x';
