@@ -43,8 +43,8 @@ it('Does the Gameboard hit the ship?', () => {
 //   expect(Gameboard().receiveAttack(2, 2).sunk).toBe(true);
 // });
 
-it('Are ships placed correctly inside the array?', () => {
-  expect(Gameboard().arrayOfShips).toBe(3);
+it('Are there enough ship in the arrayOfShips?', () => {
+  expect(Gameboard().arrayOfShips.length).toBe(10);
 });
 
 
@@ -54,4 +54,8 @@ it('Are ships placed correctly inside the array?', () => {
 
 it('What is inside the gameboardArray?', () => {
   expect(Gameboard().gameboardArray).toBe(3);
+});
+
+it('What is inside the arrayOfShips?', () => {
+  expect(Gameboard().arrayOfShips).toBe(3);
 });
