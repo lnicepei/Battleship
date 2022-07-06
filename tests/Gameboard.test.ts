@@ -28,20 +28,25 @@ it('Does the Gameboard hit the ship?', () => {
   expect(Gameboard()).toHaveProperty('receiveAttack');
 });
 
-it('Does the Gameboard hit the ship?', () => {
-  expect(Gameboard().receiveAttack(2, 2).whereHit).toEqual(expect.arrayContaining(['x']));
-});// this test was meant to work with static ships
+// it('Does the Gameboard hit the ship?', () => {
+//   expect(Gameboard().receiveAttack(2, 2).whereHit).toEqual(expect.arrayContaining(['x']));
+// });// this test was meant to work with static ships
 
-it('How correctly does the Gameboard hit the ship?', () => {
-  expect(Gameboard().receiveAttack(2, 2)).toMatchObject({
-    sunk: true,
-    whereHit: ['x'],
-  });
+// it('How correctly does the Gameboard hit the ship?', () => {
+//   expect(Gameboard().receiveAttack(2, 2)).toMatchObject({
+//     sunk: true,
+//     whereHit: ['x'],
+//   });
+// });
+
+// it('Can player sink ships?', () => {
+//   expect(Gameboard().receiveAttack(2, 2).sunk).toBe(true);
+// });
+
+it('Are ships placed correctly inside the array?', () => {
+  expect(Gameboard().arrayOfShips).toBe(3);
 });
 
-it('Can player sink ships?', () => {
-  expect(Gameboard().receiveAttack(2, 2).sunk).toBe(true);
-});
 
 it('Are ships placed correctly inside the array?', () => {
   expect(Gameboard().arrayOfShips[5].length).toBe(3);
