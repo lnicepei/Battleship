@@ -5,7 +5,7 @@ type Ship = {
   sunk: boolean;
   coordinateX: number;
   coordinateY: number;
-  area: number[];
+  // area: number[];
   hit(hitX: number, hitY: number): void;
   isSunk(): boolean;
 };
