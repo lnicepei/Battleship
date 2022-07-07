@@ -41,7 +41,7 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
   }
 
   for (let k = 1; k <= 4; k++) {
-    //creates ships and does NOT position them
+    //creates ships and positions them
     for (let i = 1; i <= k; i++) {
       // it creates random coordinates and then calls checkFreeSpot
       result = 1;
@@ -49,9 +49,9 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
         const coordinateX = randomCoordinates();
         const coordinateY = randomCoordinates();
         const position = horizontalOrVertical();
-        let ship = Ships(i, coordinateX, coordinateY);
+        let ship = Ships(i, position, coordinateX, coordinateY);
 
-        [shipsBoard, result, ship] = checkFreeSpot(
+        [shipsBoard, result, ship] = findFreeSpot(
           shipsBoard,
           ship,
           coordinateX,
@@ -65,7 +65,7 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
   return [arrayOfShips, shipsBoard];
 }
 
-function checkFreeSpot(
+function findFreeSpot(
   shipsBoard: number[][],
   ship: Ship,
   x: number,
@@ -86,26 +86,6 @@ function checkFreeSpot(
       }
       break;
     case 2:
-      // if (x + 1 < 10 && y + 1 < 10) {
-      //   if (
-      // shipsBoard[x][y] == 1 ||
-      // shipsBoard[x + 1][y] == 1 ||
-      // shipsBoard[x][y] == 2 ||
-      // shipsBoard[x + 1][y] == 2
-      //   ) {
-      //     result = 1;
-      //   } else {
-      //     ship.coordinateX = x;
-      //     ship.coordinateY = y;
-      //     position === 'vertical' ? (shipsBoard[x][y] = 1) : (shipsBoard[x][y] = 2);
-      //     position === 'vertical' ? (shipsBoard[x + 1][y] = 1) : (shipsBoard[x][y + 1] = 2);
-      //     result = 0;
-      //   }
-      // } else {
-      //   result = 1;
-      // }
-
-
       if (
         position === 'vertical' &&
         x + 1 < 10 &&
@@ -133,28 +113,6 @@ function checkFreeSpot(
       }
       break;
     case 3:
-      // if (x + 2 < 10 && y + 2 < 10) {
-      //   if (
-      //     shipsBoard[x][y] == 1 ||
-      //     shipsBoard[x + 1][y] == 1 ||
-      //     shipsBoard[x + 2][y] == 1 ||
-      //     shipsBoard[x][y] == 2 ||
-      //     shipsBoard[x + 1][y] == 2 ||
-      //     shipsBoard[x + 2][y] == 2
-      //   ) {
-      //     result = 1;
-      //   } else {
-      //     ship.coordinateX = x;
-      //     ship.coordinateY = y;
-      //     position === 'vertical' ? (shipsBoard[x][y] = 1) : (shipsBoard[x][y] = 2);
-      //     position === 'vertical' ? (shipsBoard[x + 1][y] = 1) : (shipsBoard[x][y + 1] = 2);
-      //     position === 'vertical' ? (shipsBoard[x + 2][y] = 1) : (shipsBoard[x][y + 2] = 2);
-      //     result = 0;
-      //   }
-      // } else {
-      //   result = 1;
-      // }
-
       if (
         position === 'vertical' &&
         x + 2 < 10 &&
@@ -162,7 +120,7 @@ function checkFreeSpot(
         shipsBoard[x + 1][y] !== 1 &&
         shipsBoard[x + 2][y] !== 1 &&
         shipsBoard[x][y] !== 2 &&
-        shipsBoard[x + 1][y] !== 2 && 
+        shipsBoard[x + 1][y] !== 2 &&
         shipsBoard[x + 2][y] !== 2
       ) {
         shipsBoard[x][y] = 1;
@@ -188,31 +146,6 @@ function checkFreeSpot(
       }
       break;
     case 4:
-      // if (x + 3 < 10 && y + 3 < 10) {
-      //   if (
-      //     shipsBoard[x][y] == 1 ||
-      //     shipsBoard[x + 1][y] == 1 ||
-      //     shipsBoard[x + 2][y] == 1 ||
-      //     shipsBoard[x + 3][y] == 1 ||
-      //     shipsBoard[x][y] == 2 ||
-      //     shipsBoard[x + 1][y] == 2 ||
-      //     shipsBoard[x + 2][y] == 2 ||
-      //     shipsBoard[x + 3][y] == 2
-      //   ) {
-      //     result = 1;
-      //   } else {
-      //     ship.coordinateX = x;
-      //     ship.coordinateY = y;
-      //     position === 'vertical' ? (shipsBoard[x][y] = 1) : (shipsBoard[x][y] = 2);
-      //     position === 'vertical' ? (shipsBoard[x + 1][y] = 1) : (shipsBoard[x][y + 1] = 2);
-      //     position === 'vertical' ? (shipsBoard[x + 2][y] = 1) : (shipsBoard[x][y + 2] = 2);
-      //     position === 'vertical' ? (shipsBoard[x + 3][y] = 1) : (shipsBoard[x][y + 3] = 2);
-      //     result = 0;
-      //   }
-      // } else {
-      //   result = 1;
-      // }
-
       if (
         position === 'vertical' &&
         x + 3 < 10 &&
@@ -221,7 +154,7 @@ function checkFreeSpot(
         shipsBoard[x + 2][y] !== 1 &&
         shipsBoard[x + 3][y] !== 1 &&
         shipsBoard[x][y] !== 2 &&
-        shipsBoard[x + 1][y] !== 2 && 
+        shipsBoard[x + 1][y] !== 2 &&
         shipsBoard[x + 2][y] !== 2 &&
         shipsBoard[x + 3][y] !== 2
       ) {
@@ -255,22 +188,57 @@ function checkFreeSpot(
       break;
   }
 
+  // checkBorderCells(shipsBoard, ship.length, x, y, position)
+
   return [shipsBoard, result, ship];
 }
+
+// function checkBorderCells(
+//   shipsBoard: number[][],
+//   shipLength: number,
+//   coordX: number,
+//   coordY: number,
+//   position: string
+// ): boolean {
+//   // for (let i = 0; i < shipLength; i++) {
+//   //   if (shipsBoard[coordX + i][coordY]) {
+//   //     if (shipsBoard[coordX + i][coordY] == 1 || shipsBoard[coordX + i][coordY] == 2) return false;
+//   //   } else {
+//   //     return false;
+//   //   }
+//   // }
+//   if()
+
+//   if (shipsBoard[coordX][coordY]) {
+//     for (let y = -1; y < shipLength; y++) {
+//       for (let x = 0; x < ; x++) {
+
+//       }
+//       if (
+//         shipsBoard[coordX - 1][coordY - y] &&
+//         shipsBoard[coordX - 1][coordY - y] == 1 &&
+//         shipsBoard[coordX - 1][coordY - y] == 2 &&
+//         shipsBoard[coordX - 1][coordY - 1] &&
+//         shipsBoard[coordX - 1][coordY - 1] == 1 &&
+//         shipsBoard[coordX - 1][coordY - 1] == 2 &&
+//         shipsBoard[coordX + 1][coordY - y] &&
+//         shipsBoard[coordX + 1][coordY - y] == 1 &&
+//         shipsBoard[coordX + 1][coordY - y] == 2
+//       ) {
+//         continue;
+//       } else return false;
+//     }
+//   }
+
+//   return true;
+// }
 
 function randomCoordinates(): number {
   return Math.floor(Math.random() * 10);
 }
 
 function horizontalOrVertical(): string {
-  //works for placing either horizontally or vertitally
-  // return 'vertical';
-  if (Math.floor(Math.random() * 2) == 1) {
-    return 'horizontal';
-  } else {
-    return 'vertical';
-  }
-  // Math.floor(Math.random() * 2) == 1 ? return 'horizontal' : 'vertical';
+  return Math.floor(Math.random() * 2) == 1 ? 'horizontal' : 'vertical';
 }
 
 export { Gameboard };
