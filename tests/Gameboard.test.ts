@@ -53,16 +53,16 @@ it('Are ships placed correctly inside the array?', () => {
   expect(Gameboard().arrayOfShips[5].length).toBe(3);
 });
 
-it('How many 1`s are there in gameboardArray?', () => {
+it('How many ships are there on the board?', () => {
   expect(
     Gameboard()
       .gameboardArray.flat()
-      .reduce((a, b) => a + b)
+      .filter((element) => element > 0).length
   ).toBe(20);
 });
 
 it('What is inside the arrayOfShips?', () => {
-  expect(Gameboard().arrayOfShips).toBe(3);
+  expect(Gameboard().arrayOfShips).toBe(2);
 });
 
 it('What is inside the gameboardArray?', () => {
