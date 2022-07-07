@@ -1,9 +1,11 @@
 function Ships(
   length: number,
+  position: string,
   coordinateX: number,
   coordinateY: number
 ): {
   length: number;
+  position: string;
   whereHit: string[];
   sunk: boolean;
   coordinateX: number;
@@ -14,6 +16,7 @@ function Ships(
 } {
   return {
     length: length,
+    position: position,
     whereHit: new Array(length).fill(''),
     sunk: false,
     coordinateX: coordinateX,

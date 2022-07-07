@@ -1,5 +1,6 @@
 type Ship = {
   length: number;
+  position: string;
   whereHit: string[];
   sunk: boolean;
   coordinateX: number;
