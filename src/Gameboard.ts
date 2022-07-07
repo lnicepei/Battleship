@@ -49,9 +49,15 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
         const coordinateX = randomCoordinates();
         const coordinateY = randomCoordinates();
         const position = horizontalOrVertical();
-        const ship = Ships(i, coordinateX, coordinateY);
+        let ship = Ships(i, coordinateX, coordinateY);
 
-        [shipsBoard, result] = checkFreeSpot(shipsBoard, ship, coordinateX, coordinateY, position);
+        [shipsBoard, result, ship] = checkFreeSpot(
+          shipsBoard,
+          ship,
+          coordinateX,
+          coordinateY,
+          position
+        );
         if (!result) arrayOfShips.push(ship);
       }
     }
@@ -65,69 +71,182 @@ function checkFreeSpot(
   x: number,
   y: number,
   position: string
-): [number[][], number] {
+): [number[][], number, Ship] {
   let result = 0;
 
   switch (ship.length) {
     case 1:
-      if (shipsBoard[x][y] == 1) {
+      if (shipsBoard[x][y] == 1 || shipsBoard[x][y] == 2) {
         result = 1;
       } else {
         ship.coordinateX = x;
         ship.coordinateY = y;
-        shipsBoard[x][y] = 1;
+        position === 'vertical' ? (shipsBoard[x][y] = 1) : (shipsBoard[x][y] = 2);
         result = 0;
       }
       break;
     case 2:
-      if (x + 1 < 10 && y + 1 < 10) {
-        if (shipsBoard[x][y] == 1 || shipsBoard[x + 1][y] == 1) {
-          result = 1;
-        } else {
-          ship.coordinateX = x;
-          ship.coordinateY = y;
-          shipsBoard[x][y] = 1;
-          position === 'vertical' ? (shipsBoard[x + 1][y] = 1) : (shipsBoard[x][y + 1] = 1);
-          result = 0;
-        }
+      // if (x + 1 < 10 && y + 1 < 10) {
+      //   if (
+      // shipsBoard[x][y] == 1 ||
+      // shipsBoard[x + 1][y] == 1 ||
+      // shipsBoard[x][y] == 2 ||
+      // shipsBoard[x + 1][y] == 2
+      //   ) {
+      //     result = 1;
+      //   } else {
+      //     ship.coordinateX = x;
+      //     ship.coordinateY = y;
+      //     position === 'vertical' ? (shipsBoard[x][y] = 1) : (shipsBoard[x][y] = 2);
+      //     position === 'vertical' ? (shipsBoard[x + 1][y] = 1) : (shipsBoard[x][y + 1] = 2);
+      //     result = 0;
+      //   }
+      // } else {
+      //   result = 1;
+      // }
+
+
+      if (
+        position === 'vertical' &&
+        x + 1 < 10 &&
+        shipsBoard[x][y] !== 1 &&
+        shipsBoard[x + 1][y] !== 1 &&
+        shipsBoard[x][y] !== 2 &&
+        shipsBoard[x + 1][y] !== 2
+      ) {
+        shipsBoard[x][y] = 1;
+        shipsBoard[x + 1][y] = 1;
+        result = 0;
+      } else if (
+        position === 'horizontal' &&
+        y + 1 < 10 &&
+        shipsBoard[x][y] !== 1 &&
+        shipsBoard[x][y + 1] !== 1 &&
+        shipsBoard[x][y] !== 2 &&
+        shipsBoard[x][y + 1] !== 2
+      ) {
+        shipsBoard[x][y] = 2;
+        shipsBoard[x][y + 1] = 2;
+        result = 0;
       } else {
         result = 1;
       }
       break;
     case 3:
-      if (x + 2 < 10 && y + 2 < 10) {
-        if (shipsBoard[x][y] == 1 || shipsBoard[x + 1][y] == 1 || shipsBoard[x + 2][y] == 1) {
-          result = 1;
-        } else {
-          ship.coordinateX = x;
-          ship.coordinateY = y;
-          shipsBoard[x][y] = 1;
-          position === 'vertical' ? (shipsBoard[x + 1][y] = 1) : (shipsBoard[x][y + 1] = 1);
-          position === 'vertical' ? (shipsBoard[x + 2][y] = 1) : (shipsBoard[x][y + 2] = 1);
-          result = 0;
-        }
+      // if (x + 2 < 10 && y + 2 < 10) {
+      //   if (
+      //     shipsBoard[x][y] == 1 ||
+      //     shipsBoard[x + 1][y] == 1 ||
+      //     shipsBoard[x + 2][y] == 1 ||
+      //     shipsBoard[x][y] == 2 ||
+      //     shipsBoard[x + 1][y] == 2 ||
+      //     shipsBoard[x + 2][y] == 2
+      //   ) {
+      //     result = 1;
+      //   } else {
+      //     ship.coordinateX = x;
+      //     ship.coordinateY = y;
+      //     position === 'vertical' ? (shipsBoard[x][y] = 1) : (shipsBoard[x][y] = 2);
+      //     position === 'vertical' ? (shipsBoard[x + 1][y] = 1) : (shipsBoard[x][y + 1] = 2);
+      //     position === 'vertical' ? (shipsBoard[x + 2][y] = 1) : (shipsBoard[x][y + 2] = 2);
+      //     result = 0;
+      //   }
+      // } else {
+      //   result = 1;
+      // }
+
+      if (
+        position === 'vertical' &&
+        x + 2 < 10 &&
+        shipsBoard[x][y] !== 1 &&
+        shipsBoard[x + 1][y] !== 1 &&
+        shipsBoard[x + 2][y] !== 1 &&
+        shipsBoard[x][y] !== 2 &&
+        shipsBoard[x + 1][y] !== 2 && 
+        shipsBoard[x + 2][y] !== 2
+      ) {
+        shipsBoard[x][y] = 1;
+        shipsBoard[x + 1][y] = 1;
+        shipsBoard[x + 2][y] = 1;
+        result = 0;
+      } else if (
+        position === 'horizontal' &&
+        y + 2 < 10 &&
+        shipsBoard[x][y] !== 1 &&
+        shipsBoard[x][y + 1] !== 1 &&
+        shipsBoard[x][y + 2] !== 1 &&
+        shipsBoard[x][y] !== 2 &&
+        shipsBoard[x][y + 1] !== 2 &&
+        shipsBoard[x][y + 2] !== 2
+      ) {
+        shipsBoard[x][y] = 2;
+        shipsBoard[x][y + 1] = 2;
+        shipsBoard[x][y + 2] = 2;
+        result = 0;
       } else {
         result = 1;
       }
       break;
     case 4:
-      if (x + 3 < 10 && y + 3 < 10) {
-        if (
-          shipsBoard[x][y] == 1 ||
-          shipsBoard[x + 1][y] == 1 ||
-          shipsBoard[x + 2][y] == 1 ||
-          shipsBoard[x + 3][y] == 1
-        ) {
-          result = 1;
-        } else {
-          ship.coordinateX = x;
-          ship.coordinateY = y;
-          shipsBoard[x][y] = 1;
-          position === 'vertical' ? (shipsBoard[x + 1][y] = 1) : (shipsBoard[x][y + 1] = 1);
-          position === 'vertical' ? (shipsBoard[x + 2][y] = 1) : (shipsBoard[x][y + 2] = 1);
-          position === 'vertical' ? (shipsBoard[x + 3][y] = 1) : (shipsBoard[x][y + 3] = 1);
-          result = 0;
-        }
+      // if (x + 3 < 10 && y + 3 < 10) {
+      //   if (
+      //     shipsBoard[x][y] == 1 ||
+      //     shipsBoard[x + 1][y] == 1 ||
+      //     shipsBoard[x + 2][y] == 1 ||
+      //     shipsBoard[x + 3][y] == 1 ||
+      //     shipsBoard[x][y] == 2 ||
+      //     shipsBoard[x + 1][y] == 2 ||
+      //     shipsBoard[x + 2][y] == 2 ||
+      //     shipsBoard[x + 3][y] == 2
+      //   ) {
+      //     result = 1;
+      //   } else {
+      //     ship.coordinateX = x;
+      //     ship.coordinateY = y;
+      //     position === 'vertical' ? (shipsBoard[x][y] = 1) : (shipsBoard[x][y] = 2);
+      //     position === 'vertical' ? (shipsBoard[x + 1][y] = 1) : (shipsBoard[x][y + 1] = 2);
+      //     position === 'vertical' ? (shipsBoard[x + 2][y] = 1) : (shipsBoard[x][y + 2] = 2);
+      //     position === 'vertical' ? (shipsBoard[x + 3][y] = 1) : (shipsBoard[x][y + 3] = 2);
+      //     result = 0;
+      //   }
+      // } else {
+      //   result = 1;
+      // }
+
+      if (
+        position === 'vertical' &&
+        x + 3 < 10 &&
+        shipsBoard[x][y] !== 1 &&
+        shipsBoard[x + 1][y] !== 1 &&
+        shipsBoard[x + 2][y] !== 1 &&
+        shipsBoard[x + 3][y] !== 1 &&
+        shipsBoard[x][y] !== 2 &&
+        shipsBoard[x + 1][y] !== 2 && 
+        shipsBoard[x + 2][y] !== 2 &&
+        shipsBoard[x + 3][y] !== 2
+      ) {
+        shipsBoard[x][y] = 1;
+        shipsBoard[x + 1][y] = 1;
+        shipsBoard[x + 2][y] = 1;
+        shipsBoard[x + 3][y] = 1;
+        result = 0;
+      } else if (
+        position === 'horizontal' &&
+        y + 3 < 10 &&
+        shipsBoard[x][y] !== 1 &&
+        shipsBoard[x][y + 1] !== 1 &&
+        shipsBoard[x][y + 2] !== 1 &&
+        shipsBoard[x][y + 3] !== 1 &&
+        shipsBoard[x][y] !== 2 &&
+        shipsBoard[x][y + 1] !== 2 &&
+        shipsBoard[x][y + 2] !== 2 &&
+        shipsBoard[x][y + 3] !== 2
+      ) {
+        shipsBoard[x][y] = 2;
+        shipsBoard[x][y + 1] = 2;
+        shipsBoard[x][y + 2] = 2;
+        shipsBoard[x][y + 3] = 2;
+        result = 0;
       } else {
         result = 1;
       }
@@ -136,23 +255,22 @@ function checkFreeSpot(
       break;
   }
 
-  // if (result == 0) {
-  //   for (let index = x; index < ship.length + x; index++) {
-  //     // check (ship.length) next fields
-  //     shipsBoard[index][y] = 1;
-  //   }
-  // }
-  return [shipsBoard, result];
+  return [shipsBoard, result, ship];
 }
 
 function randomCoordinates(): number {
-  return 1 + Math.floor(Math.random() * 9);
-  // return 2;
+  return Math.floor(Math.random() * 10);
 }
 
-function horizontalOrVertical(): string { //works for placing either horizontally or vertitally
-  return 'vertical';
-  // return (Math.random() * 100) % 2 == 1 ? 'horizontal' : 'vertical';
+function horizontalOrVertical(): string {
+  //works for placing either horizontally or vertitally
+  // return 'vertical';
+  if (Math.floor(Math.random() * 2) == 1) {
+    return 'horizontal';
+  } else {
+    return 'vertical';
+  }
+  // Math.floor(Math.random() * 2) == 1 ? return 'horizontal' : 'vertical';
 }
 
 export { Gameboard };
