@@ -174,7 +174,7 @@ function checkBorderCells(shipsBoard: number[][], ship: Ship): [number[][], numb
   if (ship.position === 'horizontal') {
     const y = ship.coordinateY; //4
     // let counter = 0;
-    for (let x = ship.coordinateX /*2*/; x < ship.coordinateX + ship.length /* 6*/; x++) {
+    for (let x = ship.coordinateX; x < ship.coordinateX + ship.length; x++) {
       if (shipsBoard[x - 1][y - 1] && shipsBoard[x - 1][y + 1]) {
         if (
           shipsBoard[x - 1][y - 1] !== 0 &&
