@@ -48,8 +48,8 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
       while (result) {
         let ship = Ships(i, horizontalOrVertical(), randomCoordinate(), randomCoordinate());
 
-        [shipsBoard, result, ship] = findFreeSpot(shipsBoard, ship);
-        // [shipsBoard, result, ship] = checkBorderCells(shipsBoard, ship);
+        // [shipsBoard, result, ship] = findFreeSpot(shipsBoard, ship);
+        [shipsBoard, result, ship] = checkBorderCells(shipsBoard, ship);
         if (!result) arrayOfShips.push(ship);
       }
     }
@@ -171,43 +171,45 @@ function checkBorderCells(shipsBoard: number[][], ship: Ship): [number[][], numb
   //   }
   // }
   // if()
+  let counter = 0;
   if (ship.position === 'horizontal') {
     const y = ship.coordinateY; //4
-    // let counter = 0;
     for (let x = ship.coordinateX; x < ship.coordinateX + ship.length; x++) {
-      if (shipsBoard[x - 1][y - 1] && shipsBoard[x - 1][y + 1]) {
-        if (
-          shipsBoard[x - 1][y - 1] !== 0 &&
-          shipsBoard[x - 1][y + 1] !== 0 &&
-          y + 1 >= 10 &&
-          x >= 10
-        ) {
-          return [shipsBoard, 0, ship];
+      if (x - 1 < 10 && y + 1 < 10 && x < 10 && y < 10) {
+        if (shipsBoard[x - 1][y - 1] !== 0 && shipsBoard[x - 1][y + 1] !== 0) {
+          // return [shipsBoard, 0, ship];
+          counter++;
         } else {
           shipsBoard[x][y] = 2;
         }
       } else {
-        return [shipsBoard, 1, ship];
+        counter++;
+        // return [shipsBoard, 1, ship];
       }
     }
-    return [shipsBoard, 0, ship];
+    // return [shipsBoard, 0, ship];
+    // counter++;
   }
   if (ship.position === 'vertical') {
     const x = ship.coordinateX;
-    for (let y = ship.coordinateY - 1; y < ship.coordinateY + ship.length; y++) {
-      if (shipsBoard[x - 1][y] && shipsBoard[x + 1][y]) {
-        if (shipsBoard[x - 1][y] !== 0 && shipsBoard[x + 1][y] !== 0 && y >= 10 && x + 1 >= 10) {
-          return [shipsBoard, 1, ship];
+    for (let y = ship.coordinateY; y < ship.coordinateY + ship.length; y++) {
+      if (x - 1 < 10 && y - 1 < 10 && x < 10 && y < 10 && x + 1 < 10) {
+        if (shipsBoard[x - 1][y - 1] !== 0 && shipsBoard[x + 1][y - 1] !== 0) {
+          // return [shipsBoard, 1, ship];
+          counter++;
         } else {
           shipsBoard[x][y] = 1;
         }
       } else {
-        return [shipsBoard, 1, ship];
+        // return [shipsBoard, 1, ship];
+        counter++;
       }
     }
-    return [shipsBoard, 0, ship];
+    // return [shipsBoard, 0, ship];
+    // counter++;
   }
-  return [shipsBoard, 1, ship];
+
+  return counter ? [shipsBoard, 1, ship] : [shipsBoard, 0, ship];
 }
 
 function randomCoordinate(): number {
