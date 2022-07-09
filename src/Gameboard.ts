@@ -45,6 +45,7 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
       while (result) {
         const ship = Ships(i, horizontalOrVertical(), randomCoordinate(), randomCoordinate());
         [shipsBoard, result] = checkBorderCells(shipsBoard, ship);
+
         if (!result) arrayOfShips.push(ship);
       }
     }
@@ -54,16 +55,16 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
 
 function checkBorderCells(shipsBoard: number[][], ship: Ship): [number[][], number] {
   const initialBoard: number[][] = shipsBoard.map((arr) => arr.slice());
-  // if (ship.position === 'horizontal') {
 
-  if (ship.position === 'horizontal') {
-    for (let y = ship.coordinateY - 1; y <= ship.coordinateY + 1; y++) {
-      for (let x = ship.coordinateX - 1; x <= ship.coordinateX + ship.length; x++) {
-        if (x < 10 && y < 10 && x >= 0 && y >= 0 && ship.coordinateX + ship.length) {
-          if (shipsBoard[y][x] !== 0) return [initialBoard, 1];
-        }
+  for (let y = ship.coordinateY - 1; y <= ship.coordinateY + ship.height; y++) {
+    for (let x = ship.coordinateX - 1; x <= ship.coordinateX + ship.width; x++) {
+      if (x < 10 && y < 10 && x >= 0 && y >= 0) {
+        if (shipsBoard[y][x] !== 0) return [initialBoard, 1];
       }
     }
+  }
+
+  if (ship.position === 'horizontal')
     for (let x = ship.coordinateX; x < ship.coordinateX + ship.length; x++) {
       if (x < 10) {
         shipsBoard[ship.coordinateY][x] = 1;
@@ -71,14 +72,8 @@ function checkBorderCells(shipsBoard: number[][], ship: Ship): [number[][], numb
         return [initialBoard, 1];
       }
     }
-  } else {
-    for (let y = ship.coordinateY - 1; y <= ship.coordinateY + ship.length; y++) {
-      for (let x = ship.coordinateX - 1; x <= ship.coordinateX + 1; x++) {
-        if (x < 10 && y < 10 && x >= 0 && y >= 0) {
-          if (shipsBoard[y][x] !== 0) return [initialBoard, 1];
-        }
-      }
-    }
+
+  if (ship.position === 'vertical')
     for (let y = ship.coordinateY; y < ship.coordinateY + ship.length; y++) {
       if (y < 10) {
         shipsBoard[y][ship.coordinateX] = 2;
@@ -86,8 +81,7 @@ function checkBorderCells(shipsBoard: number[][], ship: Ship): [number[][], numb
         return [initialBoard, 1];
       }
     }
-  }
-  // }
+
   return [shipsBoard, 0];
 }
 
