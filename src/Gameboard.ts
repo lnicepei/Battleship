@@ -10,7 +10,7 @@ function Gameboard(): {
     gameboardArray: number[][] = [];
 
   [arrayOfShips, gameboardArray] = createShips(arrayOfShips);
-
+  console.table(gameboardArray);
   return {
     arrayOfShips,
     receiveAttack(coordinateX: number, coordinateY: number) {
@@ -30,8 +30,7 @@ function Gameboard(): {
 }
 
 function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
-  let shipsBoard: number[][] = [[], [], [], [], [], [], [], [], [], []];
-  let result = 1;
+  let shipsBoard: number[][] = [];
 
   for (let i = 0; i < 10; i++) {
     shipsBoard[i] = new Array(10);
@@ -41,15 +40,12 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
   }
 
   for (let k = 1; k <= 4; k++) {
-    //creates ships
     for (let i = 1; i <= k; i++) {
-      // it creates random coordinates and then calls checkFreeSpot
-      result = 1;
+      //creates all kinds of ships
+      let result = 1;
       while (result) {
-        let ship = Ships(i, horizontalOrVertical(), randomCoordinate(), randomCoordinate());
-
-        // [shipsBoard, result, ship] = findFreeSpot(shipsBoard, ship);
-        [shipsBoard, result, ship] = checkBorderCells(shipsBoard, ship);
+        const ship = Ships(i, horizontalOrVertical(), randomCoordinate(), randomCoordinate());
+        [shipsBoard, result] = checkBorderCells(shipsBoard, ship);
         if (!result) arrayOfShips.push(ship);
       }
     }
@@ -57,54 +53,80 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
   return [arrayOfShips, shipsBoard];
 }
 
-function checkBorderCells(shipsBoard: number[][], ship: Ship): [number[][], number, Ship] {
-  // for (let i = 0; i < shipLength; i++) {
-  //   if (shipsBoard[coordX + i][coordY]) {
-  //     if (shipsBoard[coordX + i][coordY] == 1 || shipsBoard[coordX + i][coordY] == 2) return false;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-  // if()
-  let counter = 0;
+function checkBorderCells(shipsBoard: number[][], ship: Ship): [number[][], number] {
+  const initialBoard: number[][] = shipsBoard.map((arr) => arr.slice());
   if (ship.position === 'horizontal') {
-    const y = ship.coordinateY; //4
-    for (let x = ship.coordinateX; x < ship.coordinateX + ship.length; x++) {
-      if (x - 1 < 10 && y + 1 < 10 && x < 10 && y < 10) {
-        if (shipsBoard[x - 1][y - 1] !== 0 && shipsBoard[x - 1][y + 1] !== 0) {
-          // return [shipsBoard, 0, ship];
-          counter++;
-        } else {
-          shipsBoard[x][y] = 2;
+    for (let y = ship.coordinateY - 1; y <= ship.coordinateY + 1; y++) {
+      for (let x = ship.coordinateX - 1; x <= ship.coordinateX + ship.length; x++) {
+        if (x < 10 && y < 10 && x >= 0 && y >= 0) {
+          if (shipsBoard[y][x] !== 0) return [initialBoard, 1];
         }
-      } else {
-        counter++;
-        // return [shipsBoard, 1, ship];
       }
     }
-    // return [shipsBoard, 0, ship];
-    // counter++;
-  }
-  if (ship.position === 'vertical') {
-    const x = ship.coordinateX;
-    for (let y = ship.coordinateY; y < ship.coordinateY + ship.length; y++) {
-      if (x - 1 < 10 && y - 1 < 10 && x < 10 && y < 10 && x + 1 < 10) {
-        if (shipsBoard[x - 1][y - 1] !== 0 && shipsBoard[x + 1][y - 1] !== 0) {
-          // return [shipsBoard, 1, ship];
-          counter++;
-        } else {
-          shipsBoard[x][y] = 1;
-        }
-      } else {
-        // return [shipsBoard, 1, ship];
-        counter++;
-      }
-    }
-    // return [shipsBoard, 0, ship];
-    // counter++;
   }
 
-  return counter ? [shipsBoard, 1, ship] : [shipsBoard, 0, ship];
+  for (let x = ship.coordinateX; x < ship.coordinateX + ship.length; x++) {
+    shipsBoard[ship.coordinateY][x] = 1;
+  }
+  //   for (let x = ship.coordinateX; x < ship.coordinateX + ship.length; x++) {
+  //     if (
+  //       y - 1 >= 0 &&
+  //       y + 1 < 10 &&
+  //       x - 1 >= 0 &&
+  //       x - 1 < 10 &&
+  //       x >= 0 &&
+  //       x < 10 &&
+  //       y >= 0 &&
+  //       y < 10 &&
+  //       ship.coordinateX + ship.length < 10 &&
+  //       ship.coordinateX - 1 >= 0
+  //     ) {
+  //       if (
+  //         shipsBoard[y - 1][x - 1] == 0 &&
+  //         shipsBoard[y + 1][x - 1] == 0 &&
+  //         shipsBoard[y][ship.coordinateX - 1] == 0 &&
+  //         shipsBoard[y][ship.coordinateX + ship.length] == 0 &&
+  //         shipsBoard[y][x] == 0
+  //       ) {
+  //         shipsBoard[y][x] = 1;
+  //       } else {
+  //         return [initialBoard, 1];
+  //       }
+  //     } else {
+  //       return [initialBoard, 1];
+  //     }
+  //   }
+  // }
+
+  // if (ship.position === 'vertical') {
+  //   const x = ship.coordinateX;
+  //   const initialBoard: number[][] = shipsBoard.map((arr) => arr.slice());
+  //   for (let y = ship.coordinateY; y < ship.coordinateY + ship.length; y++) {
+  //     if (
+  //       y - 1 > 0 &&
+  //       y - 1 < 10 &&
+  //       x - 1 > 0 &&
+  //       x + 1 < 10 &&
+  //       ship.coordinateY + ship.length < 10 &&
+  //       ship.coordinateY - 1 > 0
+  //     ) {
+  //       if (
+  //         shipsBoard[y - 1][x - 1] == 0 &&
+  //         shipsBoard[y - 1][x + 1] == 0 &&
+  //         shipsBoard[ship.coordinateY - 1][ship.coordinateX] == 0 &&
+  //         shipsBoard[ship.coordinateY + ship.length][ship.coordinateX] == 0
+  //       ) {
+  //         shipsBoard[y][x] = 2;
+  //       } else {
+  //         return [initialBoard, 1];
+  //       }
+  //     } else {
+  //       return [initialBoard, 1];
+  //     }
+  //   }
+  // }
+
+  return [shipsBoard, 0];
 }
 
 function randomCoordinate(): number {
@@ -112,7 +134,8 @@ function randomCoordinate(): number {
 }
 
 function horizontalOrVertical(): string {
-  return Math.floor(Math.random() * 2) == 1 ? 'horizontal' : 'vertical';
+  // return Math.floor(Math.random() * 2) == 1 ? 'horizontal' : 'vertical';
+  return 'horizontal';
 }
 
 export { Gameboard };
