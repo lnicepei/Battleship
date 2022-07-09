@@ -4,13 +4,12 @@ import { Ships } from './Ships';
 function Gameboard(): {
   arrayOfShips: Ship[];
   receiveAttack(coordinateX: number, coordinateY: number): Ship;
-  gameboardArray: number[][];
+  shipsBoard: number[][];
 } {
   let arrayOfShips: Ship[] = [],
     gameboardArray: number[][] = [];
 
   [arrayOfShips, gameboardArray] = createShips(arrayOfShips);
-  console.table(gameboardArray);
   return {
     arrayOfShips,
     receiveAttack(coordinateX: number, coordinateY: number) {
@@ -25,7 +24,7 @@ function Gameboard(): {
       attackedShip.hit(coordinateX, coordinateY);
       return attackedShip;
     },
-    gameboardArray,
+    shipsBoard: gameboardArray,
   };
 }
 
@@ -39,8 +38,8 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
     }
   }
 
-  for (let k = 1; k <= 4; k++) {
-    for (let i = 1; i <= k; i++) {
+  for (let k = 4; k > 0; k--) {
+    for (let i = k; i > 0; i--) {
       //creates all kinds of ships
       let result = 1;
       while (result) {
@@ -48,7 +47,6 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
         [shipsBoard, result] = checkBorderCells(shipsBoard, ship);
         if (!result) arrayOfShips.push(ship);
       }
-      console.table(shipsBoard);
     }
   }
   return [arrayOfShips, shipsBoard];
@@ -56,28 +54,49 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
 
 function checkBorderCells(shipsBoard: number[][], ship: Ship): [number[][], number] {
   const initialBoard: number[][] = shipsBoard.map((arr) => arr.slice());
+  // if (ship.position === 'horizontal') {
+
   if (ship.position === 'horizontal') {
     for (let y = ship.coordinateY - 1; y <= ship.coordinateY + 1; y++) {
       for (let x = ship.coordinateX - 1; x <= ship.coordinateX + ship.length; x++) {
-        if (x < 10 && y < 10 && x >= 0 && y >= 0) {
+        if (x < 10 && y < 10 && x >= 0 && y >= 0 && ship.coordinateX + ship.length) {
           if (shipsBoard[y][x] !== 0) return [initialBoard, 1];
         }
       }
     }
     for (let x = ship.coordinateX; x < ship.coordinateX + ship.length; x++) {
-      shipsBoard[ship.coordinateY][x] = 1;
+      if (x < 10) {
+        shipsBoard[ship.coordinateY][x] = 1;
+      } else {
+        return [initialBoard, 1];
+      }
+    }
+  } else {
+    for (let y = ship.coordinateY - 1; y <= ship.coordinateY + ship.length; y++) {
+      for (let x = ship.coordinateX - 1; x <= ship.coordinateX + 1; x++) {
+        if (x < 10 && y < 10 && x >= 0 && y >= 0) {
+          if (shipsBoard[y][x] !== 0) return [initialBoard, 1];
+        }
+      }
+    }
+    for (let y = ship.coordinateY; y < ship.coordinateY + ship.length; y++) {
+      if (y < 10) {
+        shipsBoard[y][ship.coordinateX] = 2;
+      } else {
+        return [initialBoard, 1];
+      }
     }
   }
+  // }
   return [shipsBoard, 0];
 }
 
 function randomCoordinate(): number {
-  return Math.floor(Math.random() * 9);
+  return Math.floor(Math.random() * 10);
 }
 
 function horizontalOrVertical(): string {
-  // return Math.floor(Math.random() * 2) == 1 ? 'horizontal' : 'vertical';
-  return 'horizontal';
+  return Math.floor(Math.random() * 2) == 1 ? 'horizontal' : 'vertical';
 }
 
 export { Gameboard };
