@@ -54,6 +54,10 @@ it('Are ships placed correctly inside the array?', () => {
   expect(result.arrayOfShips[5].length).toBe(3);
 });
 
+it('What is the length of arrayOfShips?', () => {
+  expect(result.gameboardArray.flat().length).toBe(100);
+});
+
 it('What is inside the arrayOfShips?', () => {
   expect(result.arrayOfShips).toBe(2);
 });
