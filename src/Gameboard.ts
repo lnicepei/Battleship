@@ -10,6 +10,7 @@ function Gameboard(): {
     gameboardArray: number[][] = [];
 
   [arrayOfShips, gameboardArray] = createShips(arrayOfShips);
+  
   return {
     arrayOfShips,
     receiveAttack(coordinateX: number, coordinateY: number) {
@@ -50,6 +51,7 @@ function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
       }
     }
   }
+
   return [arrayOfShips, shipsBoard];
 }
 
