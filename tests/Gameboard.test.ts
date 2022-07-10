@@ -30,21 +30,10 @@ it('Does the Gameboard hit the ship?', () => {
   expect(result).toHaveProperty('receiveAttack');
 });
 
-it('Does the Gameboard hit the ship?', () => {
+it('Does the ship recieve attack?', () => {
   const ship: Ship = result.arrayOfShips[0];
   expect(ship.hit(ship.coordinateX, ship.coordinateY)).toEqual(expect.arrayContaining(['x']));
-}); // this test was meant to work with static ships
-
-// it('How correctly does the Gameboard hit the ship?', () => {
-//   expect(result.receiveAttack(ship.coordinateX, ship.coordinateY)).toMatchObject({
-//     sunk: true,
-//     whereHit: ['x'],
-//   });
-// });
-
-// it('Can player sink ships?', () => {
-//   expect(result.receiveAttack(2, 2).sunk).toBe(true);
-// });
+});
 
 it('Are there enough ship in the arrayOfShips?', () => {
   expect(result.arrayOfShips.length).toBe(10);
@@ -58,15 +47,23 @@ it('What is the length of shipsBoard?', () => {
   expect(result.shipsBoard.flat().length).toBe(100);
 });
 
-it('What is inside the arrayOfShips?', () => {
-  expect(result.arrayOfShips).toBe(2);
-});
-
-it('What is inside the shipsBoard?', () => {
-  expect(result.shipsBoard).toBe(20);
-});
-
 it('How many ships are there on the board?', () => {
-  console.table(result.shipsBoard);
   expect(result.shipsBoard.flat().filter((element) => element > 0).length).toBe(20);
+});
+
+it('Does the gameboard hit the ship via receive attack?', () => {
+  const ship: Ship = result.arrayOfShips[0];
+
+  expect(
+    result
+      .receiveAttack(ship.coordinateX, ship.coordinateY)
+      .flat()
+      .filter((element) => element > 2).length
+  ).toBe(1);
+});
+
+it('Does the gameboard record missed shots?', () => {
+  result.receiveAttack(1, 1);
+
+  expect(result.shipsBoard[1][1]).toBe(4);
 });
