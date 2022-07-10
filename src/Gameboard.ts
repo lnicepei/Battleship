@@ -4,6 +4,7 @@ import { Ships } from './Ships';
 function Gameboard(): {
   arrayOfShips: Ship[];
   receiveAttack(coordinateX: number, coordinateY: number): number[][];
+  checkShipsAlive(shipsBoard:number[][]):boolean;
   shipsBoard: number[][];
 } {
   let arrayOfShips: Ship[] = [],
@@ -30,6 +31,9 @@ function Gameboard(): {
 
       console.table(this.shipsBoard);
       return this.shipsBoard;
+    },
+    checkShipsAlive(shipsBoard:number[][]):boolean{
+      return shipsBoard.flat().filter(element => element == 1).length > 0;
     },
     shipsBoard: shipsBoard,
   };
