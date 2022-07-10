@@ -3,29 +3,35 @@ import { Ships } from './Ships';
 
 function Gameboard(): {
   arrayOfShips: Ship[];
-  receiveAttack(coordinateX: number, coordinateY: number): Ship;
+  receiveAttack(coordinateX: number, coordinateY: number): number[][];
   shipsBoard: number[][];
 } {
   let arrayOfShips: Ship[] = [],
-    gameboardArray: number[][] = [];
+    shipsBoard: number[][] = [];
 
-  [arrayOfShips, gameboardArray] = createShips(arrayOfShips);
-  
+  [arrayOfShips, shipsBoard] = createShips(arrayOfShips);
+
   return {
     arrayOfShips,
     receiveAttack(coordinateX: number, coordinateY: number) {
-      const attackedShip = arrayOfShips.find((ship) => {
-        if (
-          ship.coordinateX <= coordinateX &&
-          coordinateX < ship.coordinateX + ship.length &&
-          ship.coordinateY == coordinateY
-        )
-          return true;
-      }) as Ship;
-      attackedShip.hit(coordinateX, coordinateY);
-      return attackedShip;
+      // const attackedShip: Ship | undefined = arrayOfShips.find(
+      //   (ship) => ship.coordinateX == coordinateX && ship.coordinateY == coordinateY
+      // );
+      if (this.shipsBoard[coordinateY][coordinateX] == 0) {
+        // attackedShip.hit(coordinateX, coordinateY);
+        this.shipsBoard[coordinateY][coordinateX] = 4;
+      } else if (this.shipsBoard[coordinateY][coordinateX] == 1) {
+        this.shipsBoard[coordinateY][coordinateX] = 3;
+      } else if (this.shipsBoard[coordinateY][coordinateX] == 3) {
+        //if hit already hit ship
+      } else if (this.shipsBoard[coordinateY][coordinateX] == 4) {
+        //if already missed 
+      }
+
+      console.table(this.shipsBoard);
+      return this.shipsBoard;
     },
-    shipsBoard: gameboardArray,
+    shipsBoard: shipsBoard,
   };
 }
 
@@ -94,5 +100,7 @@ function randomCoordinate(): number {
 function horizontalOrVertical(): string {
   return Math.floor(Math.random() * 2) == 1 ? 'horizontal' : 'vertical';
 }
+
+// function receiveAttack(x: number, y: number): void {}
 
 export { Gameboard };
