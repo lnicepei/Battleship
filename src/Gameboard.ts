@@ -18,7 +18,7 @@ type board = {
   receiveAttack(coordinateX: number, coordinateY: number): number[][];
   checkShipsAlive(shipsBoard: number[][]): boolean;
   shipsBoard: number[][];
-}
+};
 
 function Gameboard(): board {
   let arrayOfShips: Ship[] = [],

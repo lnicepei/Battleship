@@ -1,4 +1,4 @@
-.human{
+.human {
   width: 1000px;
   height: 500px;
   display: grid;
@@ -7,12 +7,12 @@
   /* gap: 5px; */
 }
 
-.cell{
+.cell {
   width: 100px;
   height: 100px;
   background-color: red;
 }
 
-.cell:hover{
+.cell:hover {
   background-color: #eee;
 }

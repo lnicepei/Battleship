@@ -5,6 +5,11 @@ import './style.css';
 const human = createPlayer('Dmitry');
 const robot = createPlayer('robot');
 
-let result:boolean = robot.makeMove(randomCoordinate(), randomCoordinate(), human.movesBoard, human.playersGameboard);
+let result: boolean = robot.makeMove(
+  randomCoordinate(),
+  randomCoordinate(),
+  human.movesBoard,
+  human.playersGameboard
+);
 
 export { human };
