@@ -1,4 +1,4 @@
-import { Ship } from '../src';
+import { Ship } from '../src/Gameboard';
 import { Gameboard } from '../src/Gameboard';
 const result = Gameboard();
 
@@ -30,10 +30,10 @@ it('Does the Gameboard hit the ship?', () => {
   expect(result).toHaveProperty('receiveAttack');
 });
 
-it('Does the ship recieve attack?', () => {
-  const ship: Ship = result.arrayOfShips[0];
-  expect(ship.hit(ship.coordinateX, ship.coordinateY)).toEqual(expect.arrayContaining(['x']));
-});
+// it('Does the ship recieve attack?', () => {
+//   const ship: Ship = result.arrayOfShips[0];
+//   expect(ship.hit(ship.coordinateX, ship.coordinateY)).toEqual(expect.arrayContaining(['x']));
+// });
 
 it('Are there enough ship in the arrayOfShips?', () => {
   expect(result.arrayOfShips.length).toBe(10);
@@ -63,7 +63,11 @@ it('Does the gameboard hit the ship via receive attack?', () => {
 });
 
 it('Does the gameboard record missed shots?', () => {
-  result.receiveAttack(1, 1);
+  result.receiveAttack(1, 0);
 
-  expect(result.shipsBoard[1][1]).toBe(4);
+  expect(result.shipsBoard[0][1]).toBe(4);
+});
+
+it('What does the arrayOfShips look like?', () => {
+  expect(result.arrayOfShips).toBe(4);
 });
