@@ -1,10 +1,22 @@
-import { Ship } from '.';
 import { Ships } from './Ships';
+
+type Ship = {
+  length: number;
+  width: number;
+  height: number;
+  position: string;
+  whereHit: string[];
+  sunk: boolean;
+  coordinateX: number;
+  coordinateY: number;
+  hit(hitX: number, hitY: number): void;
+  isSunk(): boolean;
+};
 
 function Gameboard(): {
   arrayOfShips: Ship[];
   receiveAttack(coordinateX: number, coordinateY: number): number[][];
-  checkShipsAlive(shipsBoard:number[][]):boolean;
+  checkShipsAlive(shipsBoard: number[][]): boolean;
   shipsBoard: number[][];
 } {
   let arrayOfShips: Ship[] = [],
@@ -15,25 +27,66 @@ function Gameboard(): {
   return {
     arrayOfShips,
     receiveAttack(coordinateX: number, coordinateY: number) {
-      // const attackedShip: Ship | undefined = arrayOfShips.find(
-      //   (ship) => ship.coordinateX == coordinateX && ship.coordinateY == coordinateY
-      // );
       if (this.shipsBoard[coordinateY][coordinateX] == 0) {
         // attackedShip.hit(coordinateX, coordinateY);
         this.shipsBoard[coordinateY][coordinateX] = 4;
+        //change this.arrayOfShips
       } else if (this.shipsBoard[coordinateY][coordinateX] == 1) {
+        for (let x = coordinateX; x >= 0; x--) {
+          const attackedShip: Ship | undefined = this.arrayOfShips.find(
+            (someShip) => someShip.coordinateX == x && someShip.coordinateY == coordinateY
+          );
+          if (
+            x - 1 >= 0 &&
+            this.shipsBoard[coordinateY][x - 1] !== undefined &&
+            this.shipsBoard[coordinateY][x] !== 0
+          ) {
+            attackedShip?.hit(coordinateX, coordinateY);
+            console.log(attackedShip);
+          } else if (
+            (this.shipsBoard[coordinateY][x - 1] == undefined || x - 1 < 0) &&
+            this.shipsBoard[coordinateY][x] !== 0
+          ) {
+            attackedShip?.hit(coordinateX, coordinateY);
+            console.log(attackedShip);
+          }
+        }
         this.shipsBoard[coordinateY][coordinateX] = 3;
+      } else if (this.shipsBoard[coordinateY][coordinateX] == 2) {
+        for (let y = coordinateY; y >= 0; y--) {
+          const attackedShip: Ship | undefined = this.arrayOfShips.find(
+            (someShip) => someShip.coordinateX == coordinateX && someShip.coordinateY == y
+          );
+          if (
+            y - 1 >= 0 &&
+            this.shipsBoard[y - 1][coordinateX] !== undefined &&
+            this.shipsBoard[y][coordinateX] !== 0
+          ) {
+            attackedShip?.hit(coordinateX, coordinateY);
+            if (attackedShip) console.log(attackedShip);
+          } else if (
+            (y - 1 < 0 || this.shipsBoard[y - 1][coordinateX] == undefined) &&
+            this.shipsBoard[y][coordinateX] !== 0
+          ) {
+            attackedShip?.hit(coordinateX, coordinateY);
+            if (attackedShip) console.log(attackedShip);
+          }
+        }
+        this.shipsBoard[coordinateY][coordinateX] = 3;
+        //change this.arrayOfShips
       } else if (this.shipsBoard[coordinateY][coordinateX] == 3) {
-        //if hit already hit ship
+        //if hit already hit ship and
+        //change this.arrayOfShips
       } else if (this.shipsBoard[coordinateY][coordinateX] == 4) {
-        //if already missed 
+        //if already missed and
+        //change this.arrayOfShips
       }
 
       console.table(this.shipsBoard);
       return this.shipsBoard;
     },
-    checkShipsAlive(shipsBoard:number[][]):boolean{
-      return shipsBoard.flat().filter(element => element == 1).length > 0;
+    checkShipsAlive(shipsBoard: number[][]): boolean {
+      return shipsBoard.flat().filter((element) => element == 1).length > 0;
     },
     shipsBoard: shipsBoard,
   };
@@ -105,6 +158,4 @@ function horizontalOrVertical(): string {
   return Math.floor(Math.random() * 2) == 1 ? 'horizontal' : 'vertical';
 }
 
-// function receiveAttack(x: number, y: number): void {}
-
-export { Gameboard };
+export { Gameboard, Ship };
