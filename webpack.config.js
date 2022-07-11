@@ -13,6 +13,10 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   devtool: 'source-map',
@@ -23,5 +27,16 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [new HtmlWebpackPlugin()],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 9000,
+  },
+  plugins: [new HtmlWebpackPlugin({
+    template: "./src/index.html",
+    filename: "index.html",
+    inject:'body'
+  })],
 };
