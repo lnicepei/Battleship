@@ -13,12 +13,14 @@ type Ship = {
   isSunk(): boolean;
 };
 
-function Gameboard(): {
+type board = {
   arrayOfShips: Ship[];
   receiveAttack(coordinateX: number, coordinateY: number): number[][];
   checkShipsAlive(shipsBoard: number[][]): boolean;
   shipsBoard: number[][];
-} {
+}
+
+function Gameboard(): board {
   let arrayOfShips: Ship[] = [],
     shipsBoard: number[][] = [];
 
@@ -95,12 +97,7 @@ function Gameboard(): {
 function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
   let shipsBoard: number[][] = [];
 
-  for (let i = 0; i < 10; i++) {
-    shipsBoard[i] = new Array(10);
-    for (let j = 0; j < 10; j++) {
-      shipsBoard[i][j] = 0;
-    }
-  }
+  shipsBoard = createBoard(shipsBoard);
 
   for (let k = 4; k > 0; k--) {
     for (let i = k; i > 0; i--) {
@@ -150,6 +147,18 @@ function checkBorderCells(shipsBoard: number[][], ship: Ship): [number[][], numb
   return [shipsBoard, 0];
 }
 
+function createBoard(shipsBoard: number[][]): number[][] {
+  shipsBoard = [];
+
+  for (let i = 0; i < 10; i++) {
+    shipsBoard[i] = new Array(10);
+    for (let j = 0; j < 10; j++) {
+      shipsBoard[i][j] = 0;
+    }
+  }
+  return shipsBoard;
+}
+
 function randomCoordinate(): number {
   return Math.floor(Math.random() * 10);
 }
@@ -158,4 +167,4 @@ function horizontalOrVertical(): string {
   return Math.floor(Math.random() * 2) == 1 ? 'horizontal' : 'vertical';
 }
 
-export { Gameboard, Ship };
+export { Gameboard, Ship, board, randomCoordinate, createBoard };
