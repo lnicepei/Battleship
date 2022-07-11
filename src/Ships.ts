@@ -1,3 +1,5 @@
+import { Ship } from './Gameboard';
+
 function Ships(
   length: number,
   position: string,
@@ -33,11 +35,24 @@ function Ships(
     sunk: false,
     coordinateX: coordinateX,
     coordinateY: coordinateY,
-    hit(hitX: number, hitY: number): string[] {
-      if (hitY == coordinateY && coordinateX <= hitX && hitX < coordinateX + this.length)
-        this.whereHit[hitX - coordinateX] = 'x';
+    hit(hitX: number, hitY: number): Ship {
+      if (this.position === 'horizontal') {
+        if (
+          hitY == coordinateY &&
+          this.coordinateX <= hitX &&
+          hitX < this.coordinateX + this.length
+        )
+          this.whereHit[hitX - coordinateX] = 'x';
+      } else {
+        if (
+          hitX == this.coordinateX &&
+          this.coordinateY <= hitY &&
+          hitY < this.coordinateY + this.length
+        )
+          this.whereHit[hitY - this.coordinateY] = 'x';
+      }
       this.sunk = this.whereHit.every((cell) => cell === 'x');
-      return this.whereHit;
+      return this;
     },
     isSunk() {
       return this.sunk;
