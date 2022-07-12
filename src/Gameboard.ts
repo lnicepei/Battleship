@@ -15,7 +15,7 @@ type Ship = {
 
 type board = {
   arrayOfShips: Ship[];
-  receiveAttack(coordinateX: number, coordinateY: number): number[][];
+  receiveAttack(coordinateX: number, coordinateY: number): Promise<number[][]>;
   checkShipsAlive(shipsBoard: number[][]): boolean;
   shipsBoard: number[][];
 };
@@ -85,7 +85,10 @@ function Gameboard(): board {
       }
 
       console.table(this.shipsBoard);
-      return this.shipsBoard;
+      return new Promise((resolve) => {
+        resolve(this.shipsBoard);
+      });
+      // return this.shipsBoard;
     },
     checkShipsAlive(shipsBoard: number[][]): boolean {
       return shipsBoard.flat().filter((element) => element == 1).length > 0;
