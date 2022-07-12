@@ -1,16 +1,43 @@
-.human {
-  width: 1000px;
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title{
+  text-align: center;
+  min-height: 5vh;
+  width: 100vw;
+}
+
+.gameboards{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 95vh;
+  gap: 100px;
+}
+
+.human, .computer {
+  width: 500px;
   height: 500px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  /* gap: 5px; */
+  gap: 5px;
 }
 
 .cell {
-  width: 100px;
-  height: 100px;
-  background-color: red;
+  width: auto;
+  height: auto;
+  background-color: black;
 }
 
 .cell:hover {
