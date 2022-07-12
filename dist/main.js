@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".cell{\n  background-color: red;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,qBAAqB;AACvB","sourcesContent":[".cell{\n  background-color: red;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".human {\n  width: 1000px;\n  height: 500px;\n  display: grid;\n  grid-template-columns: repeat(10, 1fr);\n  grid-template-rows: repeat(10, 1fr);\n  /* gap: 5px; */\n}\n\n.cell {\n  width: 100px;\n  height: 100px;\n  background-color: red;\n}\n\n.cell:hover {\n  background-color: #eee;\n}\n", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,aAAa;EACb,aAAa;EACb,sCAAsC;EACtC,mCAAmC;EACnC,cAAc;AAChB;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,qBAAqB;AACvB;;AAEA;EACE,sBAAsB;AACxB","sourcesContent":[".human {\n  width: 1000px;\n  height: 500px;\n  display: grid;\n  grid-template-columns: repeat(10, 1fr);\n  grid-template-rows: repeat(10, 1fr);\n  /* gap: 5px; */\n}\n\n.cell {\n  width: 100px;\n  height: 100px;\n  background-color: red;\n}\n\n.cell:hover {\n  background-color: #eee;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -683,34 +683,29 @@ function horizontalOrVertical() {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.human = exports.computer = void 0;
+exports.createPlayer = void 0;
 const Gameboard_1 = __webpack_require__(/*! ../src/Gameboard */ "./src/Gameboard.ts");
-const computer = (0, Gameboard_1.Gameboard)();
-exports.computer = computer;
-const human = (0, Gameboard_1.Gameboard)();
-exports.human = human;
-let computersMovesBoard = [];
-let playerMovesBoard = [];
-function computerMove() {
-    const randomX = (0, Gameboard_1.randomCoordinate)();
-    const randomY = (0, Gameboard_1.randomCoordinate)();
-    computersMovesBoard = (0, Gameboard_1.createBoard)(computersMovesBoard);
-    if (computersMovesBoard[randomY][randomX] == 0) {
-        human.receiveAttack(randomX, randomY);
-        computersMovesBoard[randomY][randomX] = 1;
-        return true;
-    }
-    return false;
+function createPlayer(name) {
+    const playersGameboard = (0, Gameboard_1.Gameboard)();
+    let movesBoard = [];
+    movesBoard = (0, Gameboard_1.createBoard)(movesBoard);
+    return {
+        name: name,
+        movesBoard: movesBoard,
+        playersGameboard: playersGameboard,
+        makeMove(x, y, opponentsMovesBoard, // opponent's field with 0/1/2/3/4s
+        opponentsBoard // opponent's gameboard object with the properties of Gameboard
+        ) {
+            if (opponentsMovesBoard[y][x] == 0) {
+                opponentsBoard.receiveAttack(x, y);
+                opponentsMovesBoard[y][x] = 1;
+                return true;
+            }
+            return false;
+        },
+    };
 }
-function humanMove(x, y) {
-    playerMovesBoard = (0, Gameboard_1.createBoard)(playerMovesBoard);
-    if (playerMovesBoard[y][x] == 0) {
-        computer.receiveAttack(x, x);
-        playerMovesBoard[y][x] = 1;
-        return true;
-    }
-    return false;
-}
+exports.createPlayer = createPlayer;
 
 
 /***/ }),
@@ -851,10 +846,14 @@ var exports = __webpack_exports__;
   \**********************/
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.human = void 0;
+const Gameboard_1 = __webpack_require__(/*! ./Gameboard */ "./src/Gameboard.ts");
 const Player_1 = __webpack_require__(/*! ./Player */ "./src/Player.ts");
 __webpack_require__(/*! ./style.css */ "./src/style.css");
-console.table(Player_1.computer.shipsBoard);
-console.table(Player_1.human.shipsBoard);
+const human = (0, Player_1.createPlayer)('Dmitry');
+exports.human = human;
+const robot = (0, Player_1.createPlayer)('robot');
+let result = robot.makeMove((0, Gameboard_1.randomCoordinate)(), (0, Gameboard_1.randomCoordinate)(), human.movesBoard, human.playersGameboard);
 
 })();
 
