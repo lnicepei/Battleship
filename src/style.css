@@ -25,7 +25,7 @@ body{
   gap: 100px;
 }
 
-.human, .computer {
+.cells, .computer {
   width: 500px;
   height: 500px;
   display: grid;
