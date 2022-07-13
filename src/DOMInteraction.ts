@@ -1,6 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
 function createHumanBoard(shipsBoard: number[][]): void {
-  const children = document.querySelector('.human')?.children as HTMLCollectionOf<HTMLElement>;
+  const children = document.querySelector('.cells')?.children as HTMLCollectionOf<HTMLElement>;
 
   for (let y = 0; y < 10; y++) {
     for (let x = 0; x < 10; x++) {
@@ -12,7 +12,7 @@ function createHumanBoard(shipsBoard: number[][]): void {
 
 function updateHumanBoard(shipsBoard: number[][]): void {
   // const humanGameboardDiv = document.querySelector('.human') ?? false;
-  const children = document.querySelector('.human')?.children as HTMLCollectionOf<HTMLElement>;
+  const children = document.querySelector('.cells')?.children as HTMLCollectionOf<HTMLElement>;
 
   for (let y = 0; y < 10; y++) {
     for (let x = 0; x < 10; x++) {
