@@ -15,9 +15,10 @@ type Ship = {
 
 type board = {
   arrayOfShips: Ship[];
-  receiveAttack(coordinateX: number, coordinateY: number): number[][];
+  receiveAttack(coordinateX: number, coordinateY: number): [number[][], number];
   checkShipsAlive(): boolean;
   shipsBoard: number[][];
+  reset(): void;
 };
 
 function Gameboard(): board {
@@ -29,10 +30,11 @@ function Gameboard(): board {
   return {
     arrayOfShips,
     receiveAttack(coordinateX: number, coordinateY: number) {
+      let resulOfAttack = 0;
+
       if (this.shipsBoard[coordinateY][coordinateX] == 0) {
-        // attackedShip.hit(coordinateX, coordinateY);
         this.shipsBoard[coordinateY][coordinateX] = 4;
-        //change this.arrayOfShips
+        resulOfAttack = 1;
       } else if (this.shipsBoard[coordinateY][coordinateX] == 1) {
         for (let x = coordinateX; x >= 0; x--) {
           const attackedShip: Ship | undefined = this.arrayOfShips.find(
@@ -50,10 +52,10 @@ function Gameboard(): board {
             this.shipsBoard[coordinateY][x] !== 0
           ) {
             attackedShip?.hit(coordinateX, coordinateY);
-            console.log(attackedShip);
           }
         }
         this.shipsBoard[coordinateY][coordinateX] = 3;
+        resulOfAttack = 1;
       } else if (this.shipsBoard[coordinateY][coordinateX] == 2) {
         for (let y = coordinateY; y >= 0; y--) {
           const attackedShip: Ship | undefined = this.arrayOfShips.find(
@@ -75,6 +77,7 @@ function Gameboard(): board {
           }
         }
         this.shipsBoard[coordinateY][coordinateX] = 3;
+        resulOfAttack = 1;
         //change this.arrayOfShips
       } else if (this.shipsBoard[coordinateY][coordinateX] == 3) {
         //if hit already hit ship and
@@ -84,30 +87,30 @@ function Gameboard(): board {
         //change this.arrayOfShips
       }
 
-      console.table(this.shipsBoard);
-      // return new Promise((resolve) => {
-      //   resolve(this.shipsBoard);
-      // });
-      return this.shipsBoard;
+      return [this.shipsBoard, resulOfAttack];
     },
     checkShipsAlive(): boolean {
       return this.shipsBoard.flat().filter((element) => element == 1).length > 0;
     },
     shipsBoard: shipsBoard,
+    reset(): void {
+      arrayOfShips = [];
+      shipsBoard = [];
+    },
   };
 }
 
 function createShips(arrayOfShips: Ship[]): [Ship[], number[][]] {
   let shipsBoard: number[][] = [];
 
-  shipsBoard = createBoard(shipsBoard);
+  shipsBoard = createShipsBoard(shipsBoard);
 
   for (let k = 4; k > 0; k--) {
     for (let i = k; i > 0; i--) {
       //creates all kinds of ships
       let result = 1;
       while (result) {
-        const ship = Ships(i, horizontalOrVertical(), randomCoordinate(), randomCoordinate());
+        const ship = Ships(i, setOrientation(), randomCoordinate(), randomCoordinate());
         [shipsBoard, result] = checkBorderCells(shipsBoard, ship);
 
         if (!result) arrayOfShips.push(ship);
@@ -150,7 +153,7 @@ function checkBorderCells(shipsBoard: number[][], ship: Ship): [number[][], numb
   return [shipsBoard, 0];
 }
 
-function createBoard(shipsBoard: number[][]): number[][] {
+function createShipsBoard(shipsBoard: number[][]): number[][] {
   shipsBoard = [];
 
   for (let i = 0; i < 10; i++) {
@@ -166,8 +169,8 @@ function randomCoordinate(): number {
   return Math.floor(Math.random() * 10);
 }
 
-function horizontalOrVertical(): string {
+function setOrientation(): string {
   return Math.floor(Math.random() * 2) == 1 ? 'horizontal' : 'vertical';
 }
 
-export { Gameboard, Ship, board, randomCoordinate, createBoard };
+export { Gameboard, Ship, board, randomCoordinate, createShipsBoard };
