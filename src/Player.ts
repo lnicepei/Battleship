@@ -1,16 +1,17 @@
-import { board, createBoard, Gameboard } from '../src/Gameboard';
+import { board, createShipsBoard, Gameboard } from '../src/Gameboard';
 
 type Player = {
   name: string;
   movesBoard: number[][];
   playersGameboard: board;
   makeMove(x: number, y: number, movesBoard: number[][], opponentsBoard: board): boolean;
+  reset(): void;
 };
 
 function createPlayer(name: string): Player {
   const playersGameboard = Gameboard();
   let movesBoard: number[][] = [];
-  movesBoard = createBoard(movesBoard);
+  movesBoard = createShipsBoard(movesBoard);
   return {
     name: name, // user's name
     movesBoard: movesBoard, // board for marking hits(opponent's field)
@@ -28,7 +29,11 @@ function createPlayer(name: string): Player {
       }
       return false;
     },
+    reset(): void {
+      name = '';
+      movesBoard = [];
+    },
   };
 }
 
-export { createPlayer };
+export { createPlayer, Player };
