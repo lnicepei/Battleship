@@ -39,7 +39,3 @@ body{
   height: auto;
   background-color: black;
 }
-
-.cell:hover {
-  background-color: #eee;
-}
