@@ -34,7 +34,7 @@ function updateComputerBoard(shipsBoard: number[][]): void {
   }
 }
 
-async function playerHitCoordinatesInPromise(): Promise<number[]> {
+function playerHitCoordinatesInPromise(): Promise<number[]> {
   return new Promise((resolve) => {
     let hitX: number, hitY: number;
     document.querySelector('.computer')?.addEventListener('click', (e) => {
@@ -44,7 +44,6 @@ async function playerHitCoordinatesInPromise(): Promise<number[]> {
         const attackField = Array.prototype.indexOf.call(parent!.children, target);
         hitX = attackField % 10;
         hitY = Math.floor(attackField / 10);
-        // console.log(hitX, hitY);
         resolve([hitX, hitY]);
       }
     });
@@ -62,4 +61,10 @@ function resetBoards(): void {
   }
 }
 
-export { updateHumanBoard, updateComputerBoard, createHumanBoard, playerHitCoordinatesInPromise, resetBoards };
+export {
+  updateHumanBoard,
+  updateComputerBoard,
+  createHumanBoard,
+  playerHitCoordinatesInPromise,
+  resetBoards,
+};
