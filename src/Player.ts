@@ -9,7 +9,7 @@ type Player = {
 };
 
 function createPlayer(name: string): Player {
-  const playersGameboard = Gameboard();
+  const playersGameboard = Gameboard(name);
   let movesBoard: number[][] = [];
   movesBoard = createShipsBoard(movesBoard);
   return {
