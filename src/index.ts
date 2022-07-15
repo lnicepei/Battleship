@@ -6,55 +6,51 @@ import {
   updateComputerBoard,
   updateHumanBoard,
 } from './DOMInteraction';
-import { finishHim, randomCoordinate } from './Gameboard';
+import { randomCoordinate } from './Gameboard';
 import { createPlayer, Player } from './Player';
 import './style.css';
 
-// document.querySelector('.human__shuffle')?.addEventListener('click', createGame);
+let indexOfStartedGame = 0;
+document.querySelector('.shuffle')?.addEventListener('click', createGame);
+document.querySelector('.start')?.addEventListener('click', () => {
+  indexOfStartedGame++;
+  createGame();
+});
+
 createGame();
 
 function createGame(): void {
+  // resetBoards();
   const human = createPlayer('Dmitry');
   const computer = createPlayer('computer');
   createHumanBoard(human.playersGameboard.shipsBoard);
-  makeMovesInTurns(human, computer);
+  if (indexOfStartedGame) {
+    makeMovesInTurns(human, computer);
+  }
 }
 
 async function makeMovesInTurns(human: Player, computer: Player): Promise<void> {
   let activeGame = true;
   let turn = 2;
-  let consecutiveMove = false;
-  let attackX = 0,
-    attackY = 0;
 
   while (activeGame) {
     if (turn == 1) {
-      if (!consecutiveMove) {
-        attackX = randomCoordinate();
-        attackY = randomCoordinate();
-      }
+      const attackX = randomCoordinate();
+      const attackY = randomCoordinate();
       const [humansBoard, resultOfAttack] = human.playersGameboard.receiveAttack(attackX, attackY);
       setTimeout(() => {
         updateHumanBoard(humansBoard);
       }, 50);
-      if (!resultOfAttack) {
-        turn = 2;
-        continue;
-      }
-      // } else if (resultOfAttack && !consecutiveMove) {
-      //   consecutiveMove = true;
-      //   // finishHim(attackX, attackY, human.playersGameboard);
-      // } else if (resultOfAttack && consecutiveMove) {
-      //   // finishHim(attackX, attackY, human.playersGameboard);
-      // }
+      if (!resultOfAttack) turn = 2;
     } else {
       const coordinates = await playerHitCoordinatesInPromise();
-      const [computersBoard, resulOfAttack] = computer.playersGameboard.receiveAttack(
+      const [computersBoard, resultOfAttack] = computer.playersGameboard.receiveAttack(
         coordinates[0],
         coordinates[1]
       );
       updateComputerBoard(computersBoard);
-      if (!resulOfAttack) turn = 1;
+      // updateComputerBoard(computer.playersGameboard.shipsBoard);
+      if (!resultOfAttack) turn = 1;
     }
     activeGame =
       human.playersGameboard.checkShipsAlive() && computer.playersGameboard.checkShipsAlive();
@@ -73,8 +69,14 @@ function resetGame(human: Player, computer: Player): void {
   human.playersGameboard.reset();
   computer.playersGameboard.reset();
 
+  indexOfStartedGame = 0;
+
   human.reset();
   computer.reset();
+
+  document.querySelector('.computer')?.classList.toggle('invisible');
+  document.querySelector('.start')?.classList.toggle('invisible');
+  document.querySelector('.shuffle')?.classList.toggle('invisible');
 
   resetBoards();
   createGame();
