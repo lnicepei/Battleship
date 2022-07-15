@@ -1,3 +1,4 @@
+import { markSunkShip } from './DOMInteraction';
 import { Ships } from './Ships';
 
 type Ship = {
@@ -14,6 +15,7 @@ type Ship = {
 };
 
 type board = {
+  name: string;
   arrayOfShips: Ship[];
   receiveAttack(coordinateX: number, coordinateY: number): [number[][], number];
   checkShipsAlive(): boolean;
@@ -21,20 +23,21 @@ type board = {
   reset(): void;
 };
 
-function Gameboard(): board {
+function Gameboard(name: string): board {
   let arrayOfShips: Ship[] = [],
     shipsBoard: number[][] = [];
 
   [arrayOfShips, shipsBoard] = createShips(arrayOfShips);
 
   return {
+    name,
     arrayOfShips,
     receiveAttack(coordinateX: number, coordinateY: number) {
-      let resulOfAttack = 0;
+      let resultOfAttack = 1;
 
       if (this.shipsBoard[coordinateY][coordinateX] == 0) {
         this.shipsBoard[coordinateY][coordinateX] = 4;
-        resulOfAttack = 1;
+        resultOfAttack = 0;
       } else if (this.shipsBoard[coordinateY][coordinateX] == 1) {
         for (let x = coordinateX; x >= 0; x--) {
           const attackedShip: Ship | undefined = this.arrayOfShips.find(
@@ -43,19 +46,21 @@ function Gameboard(): board {
           if (
             x - 1 >= 0 &&
             this.shipsBoard[coordinateY][x - 1] !== undefined &&
-            this.shipsBoard[coordinateY][x] !== 0
+            this.shipsBoard[coordinateY][x] !== 0 &&
+            attackedShip
           ) {
-            attackedShip?.hit(coordinateX, coordinateY);
             console.log(attackedShip);
+            attackedShip?.hit(coordinateX, coordinateY);
           } else if (
             (this.shipsBoard[coordinateY][x - 1] == undefined || x - 1 < 0) &&
-            this.shipsBoard[coordinateY][x] !== 0
+            this.shipsBoard[coordinateY][x] !== 0 &&
+            attackedShip
           ) {
             attackedShip?.hit(coordinateX, coordinateY);
           }
+          if (attackedShip?.sunk == true && attackedShip) markSunkShip(attackedShip, this); //how to mark sunk ships???
         }
         this.shipsBoard[coordinateY][coordinateX] = 3;
-        resulOfAttack = 1;
       } else if (this.shipsBoard[coordinateY][coordinateX] == 2) {
         for (let y = coordinateY; y >= 0; y--) {
           const attackedShip: Ship | undefined = this.arrayOfShips.find(
@@ -64,30 +69,26 @@ function Gameboard(): board {
           if (
             y - 1 >= 0 &&
             this.shipsBoard[y - 1][coordinateX] !== undefined &&
-            this.shipsBoard[y][coordinateX] !== 0
+            this.shipsBoard[y][coordinateX] !== 0 &&
+            attackedShip
           ) {
+            console.log(attackedShip);
             attackedShip?.hit(coordinateX, coordinateY);
-            if (attackedShip) console.log(attackedShip);
           } else if (
             (y - 1 < 0 || this.shipsBoard[y - 1][coordinateX] == undefined) &&
-            this.shipsBoard[y][coordinateX] !== 0
+            this.shipsBoard[y][coordinateX] !== 0 &&
+            attackedShip
           ) {
             attackedShip?.hit(coordinateX, coordinateY);
-            if (attackedShip) console.log(attackedShip);
           }
+          if (attackedShip?.sunk == true && attackedShip) markSunkShip(attackedShip, this); //how to mark sunk ships???
         }
         this.shipsBoard[coordinateY][coordinateX] = 3;
-        resulOfAttack = 1;
-        //change this.arrayOfShips
-      } else if (this.shipsBoard[coordinateY][coordinateX] == 3) {
-        //if hit already hit ship and
-        //change this.arrayOfShips
-      } else if (this.shipsBoard[coordinateY][coordinateX] == 4) {
-        //if already missed and
+        // resultOfAttack = 1;
         //change this.arrayOfShips
       }
 
-      return [this.shipsBoard, resulOfAttack];
+      return [this.shipsBoard, resultOfAttack];
     },
     checkShipsAlive(): boolean {
       return this.shipsBoard.flat().filter((element) => element == 1).length > 0;
@@ -165,6 +166,17 @@ function createShipsBoard(shipsBoard: number[][]): number[][] {
   return shipsBoard;
 }
 
+function finishHim(x: number, y: number, Gameboard: board): void {
+  // for (let i = 0; i < 6; i++) {
+  // Gameboard.receiveAttack(x, y - 1);
+  // Gameboard.receiveAttack(x + 1, y);
+  // Gameboard.receiveAttack(x, y + 1);
+  // Gameboard.receiveAttack(x - 1, y);
+  // Gameboard.shipsBoard[y - 1][x] = 4;
+  // Gameboard.shipsBoard[y][x + 1] = 4;
+  // }
+}
+
 function randomCoordinate(): number {
   return Math.floor(Math.random() * 10);
 }
@@ -173,4 +185,4 @@ function setOrientation(): string {
   return Math.floor(Math.random() * 2) == 1 ? 'horizontal' : 'vertical';
 }
 
-export { Gameboard, Ship, board, randomCoordinate, createShipsBoard };
+export { Gameboard, Ship, board, randomCoordinate, createShipsBoard, finishHim };
