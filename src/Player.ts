@@ -32,6 +32,8 @@ function createPlayer(name: string): Player {
     reset(): void {
       this.name = '';
       this.movesBoard = [];
+      this.playersGameboard.arrayOfShips = [];
+      this.playersGameboard.reset();
     },
   };
 }
