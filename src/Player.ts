@@ -13,7 +13,7 @@ function createPlayer(name: string): Player {
   let movesBoard: number[][] = [];
   movesBoard = createShipsBoard(movesBoard);
   return {
-    name: name, // user's name
+    name: name, // player's name
     movesBoard: movesBoard, // board for marking hits(opponent's field)
     playersGameboard: playersGameboard, // gameboard object with the properties of Gameboard
     makeMove(
@@ -30,8 +30,8 @@ function createPlayer(name: string): Player {
       return false;
     },
     reset(): void {
-      name = '';
-      movesBoard = [];
+      this.name = '';
+      this.movesBoard = [];
     },
   };
 }
