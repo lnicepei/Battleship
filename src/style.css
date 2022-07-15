@@ -1,21 +1,21 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
-body{
+body {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.title{
+.title {
   text-align: center;
   min-height: 5vh;
   width: 100vw;
 }
 
-.gameboards{
+.gameboards {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -25,7 +25,8 @@ body{
   gap: 100px;
 }
 
-.cells, .computer {
+.cells,
+.computer {
   width: 500px;
   height: 500px;
   display: grid;
@@ -37,5 +38,15 @@ body{
 .cell {
   width: auto;
   height: auto;
-  background-color: black;
+  background-color: cyan;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    /* box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
+}
+
+.invisible{
+  display: none;
+  transition: all 2s linear;
 }
