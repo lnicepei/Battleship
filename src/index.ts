@@ -6,7 +6,7 @@ import {
   updateComputerBoard,
   updateHumanBoard,
 } from './DOMInteraction';
-import { randomCoordinate } from './Gameboard';
+import { finishHim, randomCoordinate } from './Gameboard';
 import { createPlayer, Player } from './Player';
 import './style.css';
 
@@ -23,19 +23,30 @@ function createGame(): void {
 async function makeMovesInTurns(human: Player, computer: Player): Promise<void> {
   let activeGame = true;
   let turn = 2;
+  let consecutiveMove = false;
+  let attackX = 0,
+    attackY = 0;
 
   while (activeGame) {
     if (turn == 1) {
-      const attackX = randomCoordinate()
-      const attackY = randomCoordinate()
-      const [humansBoard, resulOfAttack] = human.playersGameboard.receiveAttack(
-        randomCoordinate(),
-        randomCoordinate()
-      );
+      if (!consecutiveMove) {
+        attackX = randomCoordinate();
+        attackY = randomCoordinate();
+      }
+      const [humansBoard, resultOfAttack] = human.playersGameboard.receiveAttack(attackX, attackY);
       setTimeout(() => {
         updateHumanBoard(humansBoard);
       }, 50);
-      if (!resulOfAttack) turn = 2;
+      if (!resultOfAttack) {
+        turn = 2;
+        continue;
+      }
+      // } else if (resultOfAttack && !consecutiveMove) {
+      //   consecutiveMove = true;
+      //   // finishHim(attackX, attackY, human.playersGameboard);
+      // } else if (resultOfAttack && consecutiveMove) {
+      //   // finishHim(attackX, attackY, human.playersGameboard);
+      // }
     } else {
       const coordinates = await playerHitCoordinatesInPromise();
       const [computersBoard, resulOfAttack] = computer.playersGameboard.receiveAttack(
