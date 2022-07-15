@@ -81,7 +81,7 @@ function Gameboard(name: string): board {
           ) {
             attackedShip?.hit(coordinateX, coordinateY);
           }
-          if (attackedShip?.sunk == true && attackedShip) markSunkShip(attackedShip, this); //how to mark sunk ships???
+          if (attackedShip?.sunk == true && attackedShip) markSunkShip(attackedShip, this);
         }
         this.shipsBoard[coordinateY][coordinateX] = 3;
       }
