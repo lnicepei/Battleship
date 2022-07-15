@@ -1,3 +1,5 @@
+import { board, Ship } from './Gameboard';
+
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
 function createHumanBoard(shipsBoard: number[][]): void {
   const children = document.querySelector('.cells')?.children as HTMLCollectionOf<HTMLElement>;
@@ -61,10 +63,33 @@ function resetBoards(): void {
   }
 }
 
+function markSunkShip(attackedShip: Ship, board: board): void {
+  for (
+    let x = attackedShip.coordinateX - 1;
+    x <= attackedShip.width + attackedShip.coordinateX;
+    x++
+  ) {
+    for (
+      let y = attackedShip.coordinateY - 1;
+      y <= attackedShip.height + attackedShip.coordinateY;
+      y++
+    ) {
+      if (x < 10 && y < 10 && x >= 0 && y >= 0) {
+        if (board.shipsBoard[y][x] !== undefined && board.shipsBoard[y][x] == 0) {
+          board.shipsBoard[y][x] = 4;
+        }
+      }
+    }
+  }
+
+  if (board.name == 'computer') updateComputerBoard(board.shipsBoard);
+}
+
 export {
   updateHumanBoard,
   updateComputerBoard,
   createHumanBoard,
   playerHitCoordinatesInPromise,
   resetBoards,
+  markSunkShip,
 };
