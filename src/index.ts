@@ -10,6 +10,7 @@ import { randomCoordinate } from './Gameboard';
 import { createPlayer, Player } from './Player';
 import './style.css';
 
+// document.querySelector('.human__shuffle')?.addEventListener('click', createGame);
 createGame();
 
 function createGame(): void {
@@ -20,12 +21,13 @@ function createGame(): void {
 }
 
 async function makeMovesInTurns(human: Player, computer: Player): Promise<void> {
-  let activeGame =
-    human.playersGameboard.checkShipsAlive() && computer.playersGameboard.checkShipsAlive();
-  let turn = 1;
+  let activeGame = true;
+  let turn = 2;
 
   while (activeGame) {
     if (turn == 1) {
+      const attackX = randomCoordinate()
+      const attackY = randomCoordinate()
       const [humansBoard, resulOfAttack] = human.playersGameboard.receiveAttack(
         randomCoordinate(),
         randomCoordinate()
@@ -33,7 +35,7 @@ async function makeMovesInTurns(human: Player, computer: Player): Promise<void> 
       setTimeout(() => {
         updateHumanBoard(humansBoard);
       }, 50);
-      if (resulOfAttack) turn = 2;
+      if (!resulOfAttack) turn = 2;
     } else {
       const coordinates = await playerHitCoordinatesInPromise();
       const [computersBoard, resulOfAttack] = computer.playersGameboard.receiveAttack(
@@ -41,8 +43,7 @@ async function makeMovesInTurns(human: Player, computer: Player): Promise<void> 
         coordinates[1]
       );
       updateComputerBoard(computersBoard);
-      updateComputerBoard(computer.playersGameboard.shipsBoard);
-      if (resulOfAttack) turn = 1;
+      if (!resulOfAttack) turn = 1;
     }
     activeGame =
       human.playersGameboard.checkShipsAlive() && computer.playersGameboard.checkShipsAlive();
