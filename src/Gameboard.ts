@@ -84,8 +84,6 @@ function Gameboard(name: string): board {
           if (attackedShip?.sunk == true && attackedShip) markSunkShip(attackedShip, this); //how to mark sunk ships???
         }
         this.shipsBoard[coordinateY][coordinateX] = 3;
-        // resultOfAttack = 1;
-        //change this.arrayOfShips
       }
 
       return [this.shipsBoard, resultOfAttack];
@@ -175,6 +173,9 @@ function finishHim(x: number, y: number, Gameboard: board): void {
   // Gameboard.shipsBoard[y - 1][x] = 4;
   // Gameboard.shipsBoard[y][x + 1] = 4;
   // }
+  // console.log();
+  // Gameboard.receiveAttack(x, y + 1);
+  // Gameboard.shipsBoard
 }
 
 function randomCoordinate(): number {
