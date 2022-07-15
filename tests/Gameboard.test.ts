@@ -1,6 +1,6 @@
 import { Ship } from '../src/Gameboard';
 import { Gameboard } from '../src/Gameboard';
-const result = Gameboard();
+const result = Gameboard('expample');
 
 it('Do tests actually work?', () => {
   expect(true).toBe(true);
@@ -32,7 +32,9 @@ it('Does the Gameboard hit the ship?', () => {
 
 it('Does the ship recieve attack?', () => {
   const ship: Ship = result.arrayOfShips[0];
-  expect(ship.hit(ship.coordinateX, ship.coordinateY)).toMatchObject({whereHit: ["x", "", "", ""]});
+  expect(ship.hit(ship.coordinateX, ship.coordinateY)).toMatchObject({
+    whereHit: ['x', '', '', ''],
+  });
 });
 
 it('Are there enough ship in the arrayOfShips?', () => {
@@ -49,15 +51,4 @@ it('What is the length of shipsBoard?', () => {
 
 it('How many ships are there on the board?', () => {
   expect(result.shipsBoard.flat().filter((element) => element > 0).length).toBe(20);
-});
-
-it('Does the gameboard hit the ship via receive attack?', () => {
-  const ship: Ship = result.arrayOfShips[0];
-
-  expect(
-    result
-      .receiveAttack(ship.coordinateX, ship.coordinateY)
-      .flat()
-      .filter((element) => element > 2).length > 0
-  ).toBe(true);
 });
