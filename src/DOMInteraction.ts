@@ -83,6 +83,11 @@ function resetBoards(): void {
   }
 }
 
+function toggleMenu():void{
+  document.querySelector('.computer')?.classList.toggle('computer-visible');
+  document.querySelector('.menu')?.classList.toggle('menu-invisible');
+}
+
 function markSunkShip(attackedShip: Ship, board: board): void {
   for (
     let x = attackedShip.coordinateX - 1;
@@ -117,4 +122,5 @@ export {
   playerHitCoordinatesInPromise,
   resetBoards,
   markSunkShip,
+  toggleMenu
 };
