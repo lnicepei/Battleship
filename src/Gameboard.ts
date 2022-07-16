@@ -89,7 +89,7 @@ function Gameboard(name: string): board {
       return [this.shipsBoard, resultOfAttack];
     },
     checkShipsAlive(): boolean {
-      return this.shipsBoard.flat().filter((element) => element == 1).length > 0;
+      return this.shipsBoard.flat().filter((element) => element == 1 || element == 2).length > 0;
     },
     shipsBoard: shipsBoard,
     reset(): void {
