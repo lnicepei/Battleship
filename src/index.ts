@@ -17,7 +17,7 @@ document.querySelector('.start')?.addEventListener('click', () => {
   createGame();
 });
 
-let human: Player = createPlayer('Dmitry'),
+let human: Player = createPlayer('human'),
   computer: Player = createPlayer('computer');
 createGame();
 
@@ -25,7 +25,7 @@ function createGame(): void {
   // resetBoards();
   document.querySelector('.shuffle')?.addEventListener('click', createGame);
   if (!indexOfStartedGame) {
-    human = createPlayer('Dmitry');
+    human = createPlayer('human');
     computer = createPlayer('computer');
     createHumanBoard(human.playersGameboard.shipsBoard);
   }
