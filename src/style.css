@@ -10,12 +10,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 }
 
 .title {
   text-align: center;
   min-height: 5vh;
   width: 100vw;
+  font-size: 4rem;
 }
 
 .gameboards {
@@ -30,12 +32,12 @@ body {
 
 .cells,
 .computer {
-  width: 500px;
-  height: 500px;
+  width: 700px;
+  height: 700px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  gap: 5px;
+  gap: 3px;
   transition: 2s all linear;
 }
 
@@ -56,14 +58,14 @@ body {
   width: auto;
   height: auto;
   background-color: cyan;
-  border-radius: 7px;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
-.start, .shuffle{
+.start,
+.shuffle {
   font-size: 2rem;
   user-select: none;
   cursor: pointer;
@@ -72,10 +74,42 @@ body {
 .menu {
   display: flex;
   flex-direction: column;
+  text-align: center;
   gap: 20px;
   padding: 30px;
 }
 
-.menu-invisible{
+.menu-invisible {
   display: none;
+}
+
+@media screen and (max-width: 480px) {
+  * {
+    overflow: auto;
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+  .gameboards {
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
+  }
+
+  .cell {
+    overflow: hidden;
+  }
+
+  .cells,
+  .computer {
+    width: 90vw;
+    height: 40vh;
+  }
+
+  .menu{
+    padding: 0;
+  }
 }
