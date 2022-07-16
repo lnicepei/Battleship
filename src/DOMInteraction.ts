@@ -1,10 +1,10 @@
 import { board, Ship } from './Gameboard';
 
-const cross = `<svg style="width:36px;height:36px" viewBox="0 0 24 24">
+const cross = `<svg style="width:50px;height:50px" viewBox="0 0 24 24">
 <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
 </svg>`;
 
-const dot = `<svg style="width:36px;height:36px" viewBox="0 0 24 24">
+const dot = `<svg style="width:50px;height:50px" viewBox="0 0 24 24">
 <path fill="currentColor" d="M12,10A2,2 0 0,0 10,12C10,13.11 10.9,14 12,14C13.11,14 14,13.11 14,12A2,2 0 0,0 12,10Z" />
 </svg>`;
 
