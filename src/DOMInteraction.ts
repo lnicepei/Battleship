@@ -72,6 +72,7 @@ function playerHitCoordinatesInPromise(): Promise<number[]> {
 function resetBoards(): void {
   const children1 = document.querySelector('.cells')?.children as HTMLCollectionOf<HTMLElement>;
   const children2 = document.querySelector('.computer')?.children as HTMLCollectionOf<HTMLElement>;
+
   for (let y = 0; y < 10; y++) {
     for (let x = 0; x < 10; x++) {
       children1!.item(x + y * 10)!.innerHTML = '';
@@ -80,9 +81,6 @@ function resetBoards(): void {
       children2!.item(x + y * 10)!.style.backgroundColor = 'cyan';
     }
   }
-  // document.querySelector('.computer')?.classList.toggle('invisible');
-  // document.querySelector('.start')?.classList.toggle('invisible');
-  // document.querySelector('.shuffle')?.classList.toggle('invisible');
 }
 
 function markSunkShip(attackedShip: Ship, board: board): void {
@@ -108,11 +106,9 @@ function markSunkShip(attackedShip: Ship, board: board): void {
 }
 
 document.querySelector('.start')?.addEventListener('click', () => {
-  document.querySelector('.computer')?.classList.toggle('invisible');
-  document.querySelector('.start')?.classList.toggle('invisible');
-  document.querySelector('.shuffle')?.classList.toggle('invisible');
+  document.querySelector('.computer')?.classList.toggle('computer-visible');
+  document.querySelector('.menu')?.classList.toggle('menu-invisible');
 });
-function startGame(): void {}
 
 export {
   updateHumanBoard,
@@ -121,5 +117,4 @@ export {
   playerHitCoordinatesInPromise,
   resetBoards,
   markSunkShip,
-  startGame,
 };
