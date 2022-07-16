@@ -3,6 +3,7 @@ import {
   createHumanBoard,
   playerHitCoordinatesInPromise,
   resetBoards,
+  toggleMenu,
   updateComputerBoard,
   updateHumanBoard,
 } from './DOMInteraction';
@@ -11,19 +12,23 @@ import { createPlayer, Player } from './Player';
 import './style.css';
 
 let indexOfStartedGame = 0;
-document.querySelector('.shuffle')?.addEventListener('click', createGame);
 document.querySelector('.start')?.addEventListener('click', () => {
   indexOfStartedGame++;
   createGame();
 });
 
+let human: Player = createPlayer('Dmitry'),
+  computer: Player = createPlayer('computer');
 createGame();
 
 function createGame(): void {
   // resetBoards();
-  const human = createPlayer('Dmitry');
-  const computer = createPlayer('computer');
-  createHumanBoard(human.playersGameboard.shipsBoard);
+  document.querySelector('.shuffle')?.addEventListener('click', createGame);
+  if (!indexOfStartedGame) {
+    human = createPlayer('Dmitry');
+    computer = createPlayer('computer');
+    createHumanBoard(human.playersGameboard.shipsBoard);
+  }
   if (indexOfStartedGame) {
     makeMovesInTurns(human, computer);
   }
@@ -58,7 +63,7 @@ async function makeMovesInTurns(human: Player, computer: Player): Promise<void> 
 
   if (human.playersGameboard.checkShipsAlive() == false) {
     alert('computer won');
-  } else {
+  } else if (computer.playersGameboard.checkShipsAlive() == false) {
     alert('player won');
   }
 
@@ -74,10 +79,7 @@ function resetGame(human: Player, computer: Player): void {
   human.reset();
   computer.reset();
 
-  document.querySelector('.computer')?.classList.toggle('invisible');
-  document.querySelector('.start')?.classList.toggle('invisible');
-  document.querySelector('.shuffle')?.classList.toggle('invisible');
-
+  toggleMenu();
   resetBoards();
   createGame();
 }
