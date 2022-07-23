@@ -49,7 +49,6 @@ function Gameboard(name: string): board {
             this.shipsBoard[coordinateY][x] !== 0 &&
             attackedShip
           ) {
-            console.log(attackedShip);
             attackedShip?.hit(coordinateX, coordinateY);
           } else if (
             (this.shipsBoard[coordinateY][x - 1] == undefined || x - 1 < 0) &&
@@ -72,7 +71,6 @@ function Gameboard(name: string): board {
             this.shipsBoard[y][coordinateX] !== 0 &&
             attackedShip
           ) {
-            console.log(attackedShip);
             attackedShip?.hit(coordinateX, coordinateY);
           } else if (
             (y - 1 < 0 || this.shipsBoard[y - 1][coordinateX] == undefined) &&
@@ -164,20 +162,6 @@ function createShipsBoard(shipsBoard: number[][]): number[][] {
   return shipsBoard;
 }
 
-function finishHim(x: number, y: number, Gameboard: board): void {
-  // for (let i = 0; i < 6; i++) {
-  // Gameboard.receiveAttack(x, y - 1);
-  // Gameboard.receiveAttack(x + 1, y);
-  // Gameboard.receiveAttack(x, y + 1);
-  // Gameboard.receiveAttack(x - 1, y);
-  // Gameboard.shipsBoard[y - 1][x] = 4;
-  // Gameboard.shipsBoard[y][x + 1] = 4;
-  // }
-  // console.log();
-  // Gameboard.receiveAttack(x, y + 1);
-  // Gameboard.shipsBoard
-}
-
 function randomCoordinate(): number {
   return Math.floor(Math.random() * 10);
 }
@@ -186,4 +170,4 @@ function setOrientation(): string {
   return Math.floor(Math.random() * 2) == 1 ? 'horizontal' : 'vertical';
 }
 
-export { Gameboard, Ship, board, randomCoordinate, createShipsBoard, finishHim };
+export { Gameboard, Ship, board, randomCoordinate, createShipsBoard };
