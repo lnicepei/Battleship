@@ -1,4 +1,4 @@
-import { finishHim, Ship } from '../src/Gameboard';
+import { Ship } from '../src/Gameboard';
 import { Gameboard } from '../src/Gameboard';
 const result = Gameboard('expample');
 
@@ -50,15 +50,5 @@ describe('Check what is inside Gameboard objects', () => {
 
   it('How many ships are there on the board?', () => {
     expect(result.shipsBoard.flat().filter((element) => element > 0).length).toBe(20);
-  });
-});
-
-describe('Check, the work AI', () => {
-  const someGameboard = Gameboard('Example');
-  const oneCellShip = someGameboard.arrayOfShips[9];
-  console.log(someGameboard.arrayOfShips[9]);
-
-  it('If ship length was 1', () => {
-    // expect(finishHim(oneCellShip.coordinateX, oneCellShip.coordinateY, someGameboard)).toBe();
   });
 });
