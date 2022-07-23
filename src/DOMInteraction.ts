@@ -1,3 +1,4 @@
+import { resetGame } from '.';
 import { board, Ship } from './Gameboard';
 
 const cross = `<svg style="width:50px;height:50px" viewBox="0 0 24 24">
@@ -83,7 +84,7 @@ function resetBoards(): void {
   }
 }
 
-function toggleMenu():void{
+function toggleMenu(): void {
   document.querySelector('.computer')?.classList.toggle('computer-visible');
   document.querySelector('.menu')?.classList.toggle('menu-invisible');
 }
@@ -110,6 +111,23 @@ function markSunkShip(attackedShip: Ship, board: board): void {
   if (board.name == 'computer') updateComputerBoard(board.shipsBoard);
 }
 
+function showPopup(message: string): void {
+  const popup = document.querySelector('.result-menu') as HTMLElement;
+  const result = document.querySelector('.game-result') as HTMLElement;
+  const restart = document.querySelector('.restart-button') as HTMLElement;
+  popup.classList.toggle('result-menu-visibility');
+  result.textContent = message;
+
+  restart.addEventListener(
+    'click',
+    () => {
+      popup.classList.toggle('result-menu-visibility');
+      resetGame();
+    },
+    { once: true }
+  );
+}
+
 document.querySelector('.start')?.addEventListener('click', () => {
   document.querySelector('.computer')?.classList.toggle('computer-visible');
   document.querySelector('.menu')?.classList.toggle('menu-invisible');
@@ -122,5 +140,6 @@ export {
   playerHitCoordinatesInPromise,
   resetBoards,
   markSunkShip,
-  toggleMenu
+  toggleMenu,
+  showPopup,
 };
