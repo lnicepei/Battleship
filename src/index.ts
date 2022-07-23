@@ -3,6 +3,7 @@ import {
   createHumanBoard,
   playerHitCoordinatesInPromise,
   resetBoards,
+  showPopup,
   toggleMenu,
   updateComputerBoard,
   updateHumanBoard,
@@ -22,7 +23,6 @@ let human: Player = createPlayer('human'),
 createGame();
 
 function createGame(): void {
-  // resetBoards();
   document.querySelector('.shuffle')?.addEventListener('click', createGame);
   if (!indexOfStartedGame) {
     human = createPlayer('human');
@@ -54,7 +54,6 @@ async function makeMovesInTurns(human: Player, computer: Player): Promise<void> 
         coordinates[1]
       );
       updateComputerBoard(computersBoard);
-      // updateComputerBoard(computer.playersGameboard.shipsBoard);
       if (!resultOfAttack) turn = 1;
     }
     activeGame =
@@ -62,24 +61,18 @@ async function makeMovesInTurns(human: Player, computer: Player): Promise<void> 
   }
 
   if (human.playersGameboard.checkShipsAlive() == false) {
-    alert('computer won');
+    showPopup('Computer won');
   } else if (computer.playersGameboard.checkShipsAlive() == false) {
-    alert('player won');
+    showPopup('Player won');
   }
-
-  resetGame(human, computer);
 }
 
-function resetGame(human: Player, computer: Player): void {
-  human.playersGameboard.reset();
-  computer.playersGameboard.reset();
-
+function resetGame(): void {
   indexOfStartedGame = 0;
-
-  human.reset();
-  computer.reset();
 
   toggleMenu();
   resetBoards();
   createGame();
 }
+
+export { resetGame };
