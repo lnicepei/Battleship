@@ -658,9 +658,6 @@ function showPopup(message) {
         popup.classList.toggle('result-menu-visibility');
         (0, _1.resetGame)();
     }, { once: true });
-    return new Promise((resolve) => {
-        resolve('Next game');
-    });
 }
 exports.showPopup = showPopup;
 (_a = document.querySelector('.start')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
