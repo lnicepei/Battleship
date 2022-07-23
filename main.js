@@ -21,8 +21,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Cormorant+SC&display=swap);"]);
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Exo+2:wght@300&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  font-family: 'Cormorant SC', serif;\n}\n\nbody {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  overflow: hidden;\n}\n\n.title {\n  text-align: center;\n  min-height: 5vh;\n  width: 100vw;\n  font-size: 4rem;\n}\n\n.gameboards {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  min-height: 95vh;\n  gap: 100px;\n}\n\n.cells,\n.computer {\n  width: 700px;\n  height: 700px;\n  display: grid;\n  grid-template-columns: repeat(10, 1fr);\n  grid-template-rows: repeat(10, 1fr);\n  gap: 3px;\n  transition: 2s all linear;\n}\n\n.computer {\n  display: none;\n  transition: visibility 0s, opacity 0.5s linear;\n  visibility: hidden;\n  opacity: 0;\n}\n\n.computer-visible {\n  display: grid;\n  visibility: visible;\n  opacity: 1;\n}\n\n.cell {\n  width: auto;\n  height: auto;\n  background-color: cyan;\n  border-radius: 5px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.start,\n.shuffle {\n  font-size: 2rem;\n  user-select: none;\n  cursor: pointer;\n}\n\n.menu {\n  display: flex;\n  flex-direction: column;\n  text-align: center;\n  gap: 20px;\n  padding: 30px;\n}\n\n.menu-invisible {\n  display: none;\n}\n\n@media screen and (max-width: 480px) {\n  * {\n    overflow: auto;\n  }\n\n  body {\n    overflow: hidden;\n  }\n\n  .gameboards {\n    justify-content: flex-start;\n    flex-direction: column;\n    gap: 20px;\n    overflow: hidden;\n  }\n\n  .cell {\n    overflow: hidden;\n  }\n\n  .cells,\n  .computer {\n    width: 90vw;\n    height: 40vh;\n  }\n\n  .menu{\n    padding: 0;\n  }\n}\n", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAEA;EACE,SAAS;EACT,UAAU;EACV,kCAAkC;AACpC;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,eAAe;EACf,YAAY;EACZ,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,mBAAmB;EACnB,WAAW;EACX,gBAAgB;EAChB,UAAU;AACZ;;AAEA;;EAEE,YAAY;EACZ,aAAa;EACb,aAAa;EACb,sCAAsC;EACtC,mCAAmC;EACnC,QAAQ;EACR,yBAAyB;AAC3B;;AAEA;EACE,aAAa;EACb,8CAA8C;EAC9C,kBAAkB;EAClB,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,UAAU;AACZ;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,sBAAsB;EACtB,kBAAkB;EAClB,aAAa;EACb,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;;EAEE,eAAe;EACf,iBAAiB;EACjB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,kBAAkB;EAClB,SAAS;EACT,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE;IACE,cAAc;EAChB;;EAEA;IACE,gBAAgB;EAClB;;EAEA;IACE,2BAA2B;IAC3B,sBAAsB;IACtB,SAAS;IACT,gBAAgB;EAClB;;EAEA;IACE,gBAAgB;EAClB;;EAEA;;IAEE,WAAW;IACX,YAAY;EACd;;EAEA;IACE,UAAU;EACZ;AACF","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Cormorant+SC&display=swap');\n\n* {\n  margin: 0;\n  padding: 0;\n  font-family: 'Cormorant SC', serif;\n}\n\nbody {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  overflow: hidden;\n}\n\n.title {\n  text-align: center;\n  min-height: 5vh;\n  width: 100vw;\n  font-size: 4rem;\n}\n\n.gameboards {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  min-height: 95vh;\n  gap: 100px;\n}\n\n.cells,\n.computer {\n  width: 700px;\n  height: 700px;\n  display: grid;\n  grid-template-columns: repeat(10, 1fr);\n  grid-template-rows: repeat(10, 1fr);\n  gap: 3px;\n  transition: 2s all linear;\n}\n\n.computer {\n  display: none;\n  transition: visibility 0s, opacity 0.5s linear;\n  visibility: hidden;\n  opacity: 0;\n}\n\n.computer-visible {\n  display: grid;\n  visibility: visible;\n  opacity: 1;\n}\n\n.cell {\n  width: auto;\n  height: auto;\n  background-color: cyan;\n  border-radius: 5px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.start,\n.shuffle {\n  font-size: 2rem;\n  user-select: none;\n  cursor: pointer;\n}\n\n.menu {\n  display: flex;\n  flex-direction: column;\n  text-align: center;\n  gap: 20px;\n  padding: 30px;\n}\n\n.menu-invisible {\n  display: none;\n}\n\n@media screen and (max-width: 480px) {\n  * {\n    overflow: auto;\n  }\n\n  body {\n    overflow: hidden;\n  }\n\n  .gameboards {\n    justify-content: flex-start;\n    flex-direction: column;\n    gap: 20px;\n    overflow: hidden;\n  }\n\n  .cell {\n    overflow: hidden;\n  }\n\n  .cells,\n  .computer {\n    width: 90vw;\n    height: 40vh;\n  }\n\n  .menu{\n    padding: 0;\n  }\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  font-family: 'Exo 2', sans-serif;\n}\n\nbody {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  overflow: hidden;\n}\n\n.title {\n  text-align: center;\n  min-height: 5vh;\n  width: 100vw;\n  font-size: 4rem;\n}\n\n.gameboards {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  min-height: 95vh;\n  gap: 100px;\n}\n\n.cells,\n.computer {\n  width: 700px;\n  height: 700px;\n  display: grid;\n  grid-template-columns: repeat(10, 1fr);\n  grid-template-rows: repeat(10, 1fr);\n  gap: 3px;\n}\n\n.computer {\n  display: none;\n  visibility: hidden;\n  opacity: 0;\n}\n\n.computer-visible {\n  display: grid;\n  visibility: visible;\n  opacity: 1;\n}\n\n.cell {\n  width: auto;\n  height: auto;\n  background-color: cyan;\n  border-radius: 5px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.start,\n.shuffle {\n  font-size: 2rem;\n  user-select: none;\n  cursor: pointer;\n}\n\n.menu {\n  display: flex;\n  flex-direction: column;\n  text-align: center;\n  gap: 20px;\n  padding: 30px;\n}\n\n.menu-invisible {\n  display: none;\n}\n\n.result-menu {\n  display: none;\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  margin: auto;\n  background-color: #00ffff;\n  padding: 10px;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-size: 3rem;\n  gap: 15px;\n}\n\n.result-menu-visibility {\n  display: flex;\n}\n\n/* .restart-button {\n  color: black;\n  background-color: white;\n  border: none;\n} */\n/* CSS */\n.restart-button, .start, .shuffle {\n  align-items: center;\n  appearance: none;\n  background-color: #FCFCFD;\n  border-radius: 4px;\n  border-width: 0;\n  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;\n  box-sizing: border-box;\n  color: #36395A;\n  cursor: pointer;\n  display: inline-flex;\n  font-family: \"JetBrains Mono\",monospace;\n  height: 48px;\n  justify-content: center;\n  line-height: 1;\n  list-style: none;\n  overflow: hidden;\n  padding-left: 16px;\n  padding-right: 16px;\n  position: relative;\n  text-align: left;\n  text-decoration: none;\n  transition: box-shadow .15s,transform .15s;\n  user-select: none;\n  -webkit-user-select: none;\n  touch-action: manipulation;\n  white-space: nowrap;\n  will-change: box-shadow,transform;\n  font-size: 18px;\n}\n\n.restart-button:focus, .start:focus, .shuffle:focus {\n  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;\n}\n\n.restart-button:hover, .start:hover, .shuffle:hover {\n  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;\n  transform: translateY(-2px);\n}\n\n.restart-button:active, .start:hover, .shuffle:hover {\n  box-shadow: #D6D6E7 0 3px 7px inset;\n  transform: translateY(2px);\n}\n\n@media screen and (max-width: 480px) {\n  * {\n    overflow: auto;\n  }\n\n  body {\n    overflow: hidden;\n  }\n\n  .gameboards {\n    justify-content: flex-start;\n    flex-direction: column;\n    gap: 20px;\n    overflow: hidden;\n  }\n\n  .cell {\n    overflow: hidden;\n  }\n\n  .cells,\n  .computer {\n    width: 90vw;\n    height: 40vh;\n  }\n\n  .menu {\n    padding: 0;\n  }\n}\n", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAEA;EACE,SAAS;EACT,UAAU;EACV,gCAAgC;AAClC;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,eAAe;EACf,YAAY;EACZ,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,mBAAmB;EACnB,WAAW;EACX,gBAAgB;EAChB,UAAU;AACZ;;AAEA;;EAEE,YAAY;EACZ,aAAa;EACb,aAAa;EACb,sCAAsC;EACtC,mCAAmC;EACnC,QAAQ;AACV;;AAEA;EACE,aAAa;EACb,kBAAkB;EAClB,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,UAAU;AACZ;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,sBAAsB;EACtB,kBAAkB;EAClB,aAAa;EACb,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;;EAEE,eAAe;EACf,iBAAiB;EACjB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,kBAAkB;EAClB,SAAS;EACT,aAAa;AACf;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;EACb,kBAAkB;EAClB,OAAO;EACP,QAAQ;EACR,MAAM;EACN,SAAS;EACT,YAAY;EACZ,yBAAyB;EACzB,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,sBAAsB;EACtB,eAAe;EACf,SAAS;AACX;;AAEA;EACE,aAAa;AACf;;AAEA;;;;GAIG;AACH,QAAQ;AACR;EACE,mBAAmB;EACnB,gBAAgB;EAChB,yBAAyB;EACzB,kBAAkB;EAClB,eAAe;EACf,wGAAwG;EACxG,sBAAsB;EACtB,cAAc;EACd,eAAe;EACf,oBAAoB;EACpB,uCAAuC;EACvC,YAAY;EACZ,uBAAuB;EACvB,cAAc;EACd,gBAAgB;EAChB,gBAAgB;EAChB,kBAAkB;EAClB,mBAAmB;EACnB,kBAAkB;EAClB,gBAAgB;EAChB,qBAAqB;EACrB,0CAA0C;EAC1C,iBAAiB;EACjB,yBAAyB;EACzB,0BAA0B;EAC1B,mBAAmB;EACnB,iCAAiC;EACjC,eAAe;AACjB;;AAEA;EACE,qIAAqI;AACvI;;AAEA;EACE,0GAA0G;EAC1G,2BAA2B;AAC7B;;AAEA;EACE,mCAAmC;EACnC,0BAA0B;AAC5B;;AAEA;EACE;IACE,cAAc;EAChB;;EAEA;IACE,gBAAgB;EAClB;;EAEA;IACE,2BAA2B;IAC3B,sBAAsB;IACtB,SAAS;IACT,gBAAgB;EAClB;;EAEA;IACE,gBAAgB;EAClB;;EAEA;;IAEE,WAAW;IACX,YAAY;EACd;;EAEA;IACE,UAAU;EACZ;AACF","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Cormorant+SC&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300&display=swap');\n* {\n  margin: 0;\n  padding: 0;\n  font-family: 'Exo 2', sans-serif;\n}\n\nbody {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  overflow: hidden;\n}\n\n.title {\n  text-align: center;\n  min-height: 5vh;\n  width: 100vw;\n  font-size: 4rem;\n}\n\n.gameboards {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  min-height: 95vh;\n  gap: 100px;\n}\n\n.cells,\n.computer {\n  width: 700px;\n  height: 700px;\n  display: grid;\n  grid-template-columns: repeat(10, 1fr);\n  grid-template-rows: repeat(10, 1fr);\n  gap: 3px;\n}\n\n.computer {\n  display: none;\n  visibility: hidden;\n  opacity: 0;\n}\n\n.computer-visible {\n  display: grid;\n  visibility: visible;\n  opacity: 1;\n}\n\n.cell {\n  width: auto;\n  height: auto;\n  background-color: cyan;\n  border-radius: 5px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.start,\n.shuffle {\n  font-size: 2rem;\n  user-select: none;\n  cursor: pointer;\n}\n\n.menu {\n  display: flex;\n  flex-direction: column;\n  text-align: center;\n  gap: 20px;\n  padding: 30px;\n}\n\n.menu-invisible {\n  display: none;\n}\n\n.result-menu {\n  display: none;\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  margin: auto;\n  background-color: #00ffff;\n  padding: 10px;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-size: 3rem;\n  gap: 15px;\n}\n\n.result-menu-visibility {\n  display: flex;\n}\n\n/* .restart-button {\n  color: black;\n  background-color: white;\n  border: none;\n} */\n/* CSS */\n.restart-button, .start, .shuffle {\n  align-items: center;\n  appearance: none;\n  background-color: #FCFCFD;\n  border-radius: 4px;\n  border-width: 0;\n  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;\n  box-sizing: border-box;\n  color: #36395A;\n  cursor: pointer;\n  display: inline-flex;\n  font-family: \"JetBrains Mono\",monospace;\n  height: 48px;\n  justify-content: center;\n  line-height: 1;\n  list-style: none;\n  overflow: hidden;\n  padding-left: 16px;\n  padding-right: 16px;\n  position: relative;\n  text-align: left;\n  text-decoration: none;\n  transition: box-shadow .15s,transform .15s;\n  user-select: none;\n  -webkit-user-select: none;\n  touch-action: manipulation;\n  white-space: nowrap;\n  will-change: box-shadow,transform;\n  font-size: 18px;\n}\n\n.restart-button:focus, .start:focus, .shuffle:focus {\n  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;\n}\n\n.restart-button:hover, .start:hover, .shuffle:hover {\n  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;\n  transform: translateY(-2px);\n}\n\n.restart-button:active, .start:hover, .shuffle:hover {\n  box-shadow: #D6D6E7 0 3px 7px inset;\n  transform: translateY(2px);\n}\n\n@media screen and (max-width: 480px) {\n  * {\n    overflow: auto;\n  }\n\n  body {\n    overflow: hidden;\n  }\n\n  .gameboards {\n    justify-content: flex-start;\n    flex-direction: column;\n    gap: 20px;\n    overflow: hidden;\n  }\n\n  .cell {\n    overflow: hidden;\n  }\n\n  .cells,\n  .computer {\n    width: 90vw;\n    height: 40vh;\n  }\n\n  .menu {\n    padding: 0;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -535,12 +536,13 @@ module.exports = styleTagTransform;
 /*!*******************************!*\
   !*** ./src/DOMInteraction.ts ***!
   \*******************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.toggleMenu = exports.markSunkShip = exports.resetBoards = exports.playerHitCoordinatesInPromise = exports.createHumanBoard = exports.updateComputerBoard = exports.updateHumanBoard = void 0;
+exports.showPopup = exports.toggleMenu = exports.markSunkShip = exports.resetBoards = exports.playerHitCoordinatesInPromise = exports.createHumanBoard = exports.updateComputerBoard = exports.updateHumanBoard = void 0;
+const _1 = __webpack_require__(/*! . */ "./src/index.ts");
 const cross = `<svg style="width:50px;height:50px" viewBox="0 0 24 24">
 <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
 </svg>`;
@@ -646,6 +648,21 @@ function markSunkShip(attackedShip, board) {
         updateComputerBoard(board.shipsBoard);
 }
 exports.markSunkShip = markSunkShip;
+function showPopup(message) {
+    const popup = document.querySelector('.result-menu');
+    const result = document.querySelector('.game-result');
+    const restart = document.querySelector('.restart-button');
+    popup.classList.toggle('result-menu-visibility');
+    result.textContent = message;
+    restart.addEventListener('click', () => {
+        popup.classList.toggle('result-menu-visibility');
+        (0, _1.resetGame)();
+    }, { once: true });
+    return new Promise((resolve) => {
+        resolve('Next game');
+    });
+}
+exports.showPopup = showPopup;
 (_a = document.querySelector('.start')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
     var _a, _b;
     (_a = document.querySelector('.computer')) === null || _a === void 0 ? void 0 : _a.classList.toggle('computer-visible');
@@ -663,7 +680,7 @@ exports.markSunkShip = markSunkShip;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.finishHim = exports.createShipsBoard = exports.randomCoordinate = exports.Gameboard = void 0;
+exports.createShipsBoard = exports.randomCoordinate = exports.Gameboard = void 0;
 const DOMInteraction_1 = __webpack_require__(/*! ./DOMInteraction */ "./src/DOMInteraction.ts");
 const Ships_1 = __webpack_require__(/*! ./Ships */ "./src/Ships.ts");
 function Gameboard(name) {
@@ -685,7 +702,6 @@ function Gameboard(name) {
                         this.shipsBoard[coordinateY][x - 1] !== undefined &&
                         this.shipsBoard[coordinateY][x] !== 0 &&
                         attackedShip) {
-                        console.log(attackedShip);
                         attackedShip === null || attackedShip === void 0 ? void 0 : attackedShip.hit(coordinateX, coordinateY);
                     }
                     else if ((this.shipsBoard[coordinateY][x - 1] == undefined || x - 1 < 0) &&
@@ -705,7 +721,6 @@ function Gameboard(name) {
                         this.shipsBoard[y - 1][coordinateX] !== undefined &&
                         this.shipsBoard[y][coordinateX] !== 0 &&
                         attackedShip) {
-                        console.log(attackedShip);
                         attackedShip === null || attackedShip === void 0 ? void 0 : attackedShip.hit(coordinateX, coordinateY);
                     }
                     else if ((y - 1 < 0 || this.shipsBoard[y - 1][coordinateX] == undefined) &&
@@ -789,20 +804,6 @@ function createShipsBoard(shipsBoard) {
     return shipsBoard;
 }
 exports.createShipsBoard = createShipsBoard;
-function finishHim(x, y, Gameboard) {
-    // for (let i = 0; i < 6; i++) {
-    // Gameboard.receiveAttack(x, y - 1);
-    // Gameboard.receiveAttack(x + 1, y);
-    // Gameboard.receiveAttack(x, y + 1);
-    // Gameboard.receiveAttack(x - 1, y);
-    // Gameboard.shipsBoard[y - 1][x] = 4;
-    // Gameboard.shipsBoard[y][x + 1] = 4;
-    // }
-    // console.log();
-    // Gameboard.receiveAttack(x, y + 1);
-    // Gameboard.shipsBoard
-}
-exports.finishHim = finishHim;
 function randomCoordinate() {
     return Math.floor(Math.random() * 10);
 }
@@ -927,6 +928,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.resetGame = void 0;
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
 const DOMInteraction_1 = __webpack_require__(/*! ./DOMInteraction */ "./src/DOMInteraction.ts");
 const Gameboard_1 = __webpack_require__(/*! ./Gameboard */ "./src/Gameboard.ts");
@@ -941,7 +943,6 @@ let human = (0, Player_1.createPlayer)('human'), computer = (0, Player_1.createP
 createGame();
 function createGame() {
     var _a;
-    // resetBoards();
     (_a = document.querySelector('.shuffle')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', createGame);
     if (!indexOfStartedGame) {
         human = (0, Player_1.createPlayer)('human');
@@ -971,7 +972,6 @@ function makeMovesInTurns(human, computer) {
                 const coordinates = yield (0, DOMInteraction_1.playerHitCoordinatesInPromise)();
                 const [computersBoard, resultOfAttack] = computer.playersGameboard.receiveAttack(coordinates[0], coordinates[1]);
                 (0, DOMInteraction_1.updateComputerBoard)(computersBoard);
-                // updateComputerBoard(computer.playersGameboard.shipsBoard);
                 if (!resultOfAttack)
                     turn = 1;
             }
@@ -979,24 +979,20 @@ function makeMovesInTurns(human, computer) {
                 human.playersGameboard.checkShipsAlive() && computer.playersGameboard.checkShipsAlive();
         }
         if (human.playersGameboard.checkShipsAlive() == false) {
-            alert('computer won');
+            (0, DOMInteraction_1.showPopup)('Computer won');
         }
         else if (computer.playersGameboard.checkShipsAlive() == false) {
-            alert('player won');
+            (0, DOMInteraction_1.showPopup)('Player won');
         }
-        resetGame(human, computer);
     });
 }
-function resetGame(human, computer) {
-    human.playersGameboard.reset();
-    computer.playersGameboard.reset();
+function resetGame() {
     indexOfStartedGame = 0;
-    human.reset();
-    computer.reset();
     (0, DOMInteraction_1.toggleMenu)();
     (0, DOMInteraction_1.resetBoards)();
     createGame();
 }
+exports.resetGame = resetGame;
 
 
 /***/ })
